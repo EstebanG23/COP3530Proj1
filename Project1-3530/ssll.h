@@ -63,7 +63,13 @@ public:
 	}
 
 	void insert(const T& element, int position) {
-		
+		Node * prev = head;
+		Node * temp;
+		for (int i = 0; i < position; ++i){
+			prev = prev->next;
+			std::cout << prev->data;
+		}
+
 	}
 
 	void push_front(const T& element) {

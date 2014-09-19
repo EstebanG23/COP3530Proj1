@@ -25,6 +25,8 @@ int main(){
 
 	a->print(std::cout);
 
-	std::cout << "HELLO";
+	std::cout << "HELLO" << std::endl;
+
+	a->insert(3, 4);
 	return 0;
 }
