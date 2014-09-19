@@ -24,5 +24,7 @@ int main(){
 	std::cout << std::endl << "Size: " << a->size() << std::endl;
 
 	a->print(std::cout);
+
+	std::cout << "HELLO";
 	return 0;
 }
