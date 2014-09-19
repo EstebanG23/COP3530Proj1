@@ -20,7 +20,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ssll.h">
+    <ClInclude Include="SSLL.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
