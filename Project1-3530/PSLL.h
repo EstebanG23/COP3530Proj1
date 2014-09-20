@@ -19,9 +19,13 @@ private:
 		Node *next;
 
 	}; // end struct Node
-	Node *head;
-	Node *tail;
+	Node * head;
+	Node * tail;
+	Node * poolHead;
+	Node * poolTail;
 	int amount;
+	int poolAmount;
+
 
 
 public:
@@ -280,6 +284,38 @@ public:
 		return out;
 
 	}
+
+
+	/*
+	Node * poolHead;
+	Node * poolTail;
+	*/
+
+	private:
+		//pushes all emptied, unused nodes to the back
+		void push_pool(Node& src){
+			if (poolAmount != 0){
+				poolTail->next = src;
+				poolTail = poolTail->next;
+			}
+			else{
+				poolHead = src;
+				poolTail = src;
+			}
+			++poolAmount;
+		}
+
+		Node pop_pool(){
+			if (poolAmount != 0){
+				Node * temp = poolHead;
+				poolHead = poolHead->next;
+				return temp;
+			}
+			else{
+				return new Node;
+			}
+
+		}
 
 };
 

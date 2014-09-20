@@ -18,7 +18,7 @@ void in_list(const SSLL<char>& list, char c, std::ostream& out) {
 
 
 int main(){
-
+	/*
 	//Creating a list
 	SSLL<char> a;
 	//Curent Size
@@ -44,6 +44,21 @@ int main(){
 	a = l;
 	a.size();
 	a.print(std::cout);
+	*/
+
+
+	PSLL<int> b;
+
+	b.push_back(1);
+	b.push_back(2);
+	b.push_back(3);
+	b.push_back(4);
+	b.push_back(5);
+	b.push_front(0);
+
+
+
+
 	return 0;
 }
 
