@@ -26,5 +26,8 @@
     <ClInclude Include="PSLL.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
+    <ClInclude Include="SDAL.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
