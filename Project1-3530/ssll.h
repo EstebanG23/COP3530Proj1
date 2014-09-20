@@ -63,13 +63,26 @@ public:
 	}
 
 	void insert(const T& element, int position) {
-		Node * prev = head;
-		Node * temp;
-		for (int i = 0; i < position; ++i){
-			prev = prev->next;
-			std::cout << prev->data;
-		}
+		Node * next = head;
+		Node * prev;
 
+		if (position != 0 && position != amount - 1){
+			for (int i = 0; i < position; ++i){
+				prev = next;
+				next = next->next;
+				if (position - 1 == i){
+					prev->next = new Node;
+					prev->next->data = element;
+					prev->next->next = next;
+
+				}
+
+			}
+			++amount;
+		}
+		else if (position == 0){ push_front(element); }
+		else { push_back(element); }
+		
 	}
 
 	void push_front(const T& element) {
@@ -103,12 +116,20 @@ public:
 
 	T pop_back() {
 		T data = tail->data;
-		delete tail;
-		tail = head;
-		for (int i = 0; i < amount-2; ++i){
-			tail = tail->next;
-			//std::cout << tail->data << std::endl;
+		if (amount == 1){
+			delete tail;
+			head = new Node;
+			tail = head;
 		}
+		else{
+			delete tail;
+			tail = head;
+			for (int i = 0; i < amount - 2; ++i){
+				tail = tail->next;
+				//std::cout << tail->data << std::endl;
+			}
+		}
+
 		--amount;
 		return data;
 	}
@@ -173,9 +194,10 @@ public:
 			temp = temp->next;
 			delete tail;
 		}
-		tail = new Node;
-		head = tail;
+		head = new Node;
+		tail = head;
 		amount = 0;
+	
 	}
 
 	bool contains(const T& element,
