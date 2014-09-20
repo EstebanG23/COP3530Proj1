@@ -38,6 +38,7 @@ public:
 		amount = 0;
 		tail = new Node();
 		head = tail;
+		poolAmount = 0;
 	}
 
 	//--------------------------------------------------
@@ -93,7 +94,7 @@ public:
 				prev = next;
 				next = next->next;
 				if (position - 1 == i){
-					prev->next = new Node;
+					prev->next = pop_pool();
 					prev->next->data = element;
 					prev->next->next = next;
 
@@ -115,7 +116,7 @@ public:
 		}
 		else{
 			Node *temp = head;
-			head = new Node;
+			head = pop_pool();
 			head->data = element;
 			head->next = temp;
 		}
@@ -129,7 +130,7 @@ public:
 			head->data = element;
 		}
 		else {
-			tail->next = new Node;
+			tail->next = pop_pool();
 			tail = tail->next;
 			tail->data = element;
 
@@ -143,7 +144,8 @@ public:
 		T data = head->data;
 		Node * temp = head;
 		head = head->next;
-		delete temp;
+		//Adding removed Node to Pool
+		push_pool(temp);
 		--amount;
 		return data;
 	}
@@ -152,13 +154,13 @@ public:
 	//pops elements off the back, moves tail to the previous element
 	T pop_back() {
 		T data = tail->data;
+		//Adding removed Node to Pool
+		push_pool(tail);
 		if (amount == 1){
-			delete tail;
-			head = new Node;
+			head = pop_pool();
 			tail = head;
 		}
 		else{
-			delete tail;
 			tail = head;
 			for (int i = 0; i < amount - 2; ++i){
 				tail = tail->next;
@@ -239,7 +241,7 @@ public:
 			temp = temp->next;
 			delete tail;
 		}
-		head = new Node;
+		head = pop_pool();
 		tail = head;
 		amount = 0;
 
@@ -293,7 +295,7 @@ public:
 
 	private:
 		//pushes all emptied, unused nodes to the back
-		void push_pool(Node& src){
+		void push_pool(Node* src){
 			if (poolAmount != 0){
 				poolTail->next = src;
 				poolTail = poolTail->next;
@@ -305,14 +307,16 @@ public:
 			++poolAmount;
 		}
 
-		Node pop_pool(){
+		Node* pop_pool(){
 			if (poolAmount != 0){
 				Node * temp = poolHead;
 				poolHead = poolHead->next;
+				--poolAmount;
 				return temp;
 			}
 			else{
-				return new Node;
+				Node * temp = new Node;
+				return temp;
 			}
 
 		}
