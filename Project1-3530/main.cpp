@@ -49,22 +49,40 @@ int main(){
 
 	PSLL<int> b;
 
-	b.push_back(1);
-	b.push_back(2);
-	b.push_back(3);
-	b.push_back(4);
-	b.push_back(5);
-	b.push_front(0);
+	b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0); b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0);
+	b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0); b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0);
+	b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0); b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0);
+	b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0); b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0);
+	b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0); b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0);
+	b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0); b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0);
+	b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0); b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0);
+	b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0); b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0);
+	b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0); b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0);
+	b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0); b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0);
+	b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0); b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0);
+	b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0); b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0);
+	b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0); b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0);
+	b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0); b.push_back(1); b.push_back(2); b.push_back(3); b.push_back(4); b.push_back(5); b.push_front(0);
 
-	std::cout << b.pop_back() << std::endl;
-	std::cout << b.pop_back() << std::endl;
-	std::cout << b.pop_back() << std::endl;
-	std::cout << b.pop_back() << std::endl;
+	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;
+	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;
+	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;
+	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;
+	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;
+	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;
+	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;
+	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;
+	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;
+	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;
+	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;
+	std::cout << b.pop_back() << std::endl; std::cout << b.pop_back() << std::endl;
 	b.push_back(31);
 	b.push_back(21);
 	b.push_back(11);
 	std::cout << b.pop_back() << std::endl;
 	std::cout << b.pop_back() << std::endl;
+
+	b.print(std::cout);
 
 	return 0;
 }

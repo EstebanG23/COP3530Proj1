@@ -296,17 +296,34 @@ public:
 	private:
 		//pushes all emptied, unused nodes to the back
 		void push_pool(Node* src){
-			if (poolAmount != 0){
-				poolTail->next = src;
-				poolTail = poolTail->next;
+			std::cout << "Pool size: ";
+			std::cout << poolAmount << std::endl;
+			if (amount >= 100 && poolAmount > amount / 2){
+				delete src;
+				int i = poolAmount / 2;
+				while (poolAmount > i){
+					std::cout << "Trying to delete half nodes" << std::endl;
+					Node * temp = poolHead;
+					poolHead = poolHead->next;
+					delete temp;
+					--poolAmount;
+				}
 			}
 			else{
-				poolHead = src;
-				poolTail = src;
+				if (poolAmount != 0){
+					poolTail->next = src;
+					poolTail = poolTail->next;
+				}
+				else{
+					poolHead = src;
+					poolTail = src;
+				}
+				++poolAmount;
 			}
-			++poolAmount;
+
 		}
 
+		//Either creates a new Node or sends one from the pool if it exist. 
 		Node* pop_pool(){
 			if (poolAmount != 0){
 				Node * temp = poolHead;
