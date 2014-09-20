@@ -19,7 +19,7 @@ void in_list(const SSLL<char>& list, char c, std::ostream& out) {
 int main(){
 
 	//Creating a list
-	SSLL<int> a;
+	SSLL<char> a;
 	//Curent Size
 	std::cout << "Size: " << a.size();
 
@@ -38,8 +38,11 @@ int main(){
 	in_list(l, 'x', std::cout);
 	in_list(l, 'X', std::cout);
 
+	std::cout << std::endl << std::endl;
 
-
+	a = l;
+	a.size();
+	a.print(std::cout);
 	return 0;
 }
 

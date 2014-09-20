@@ -44,6 +44,8 @@ public:
 	//--------------------------------------------------
 	~SSLL() {
 		// safely dispose of this SSLL's contents
+		clear();
+		delete head;
 	}
 
 	//--------------------------------------------------
@@ -53,6 +55,10 @@ public:
 
 		// safely dispose of this SSLL's contents
 		// populate this SSLL with copies of the other SSLL's contents
+		clear();
+		for (int i = 0; i < src.size(); i++){
+			push_back(src.item_at(i));
+		}
 	}
 
 
