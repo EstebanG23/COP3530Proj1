@@ -18,7 +18,7 @@ class SSLL {
 private:
 	struct Node {
 		T data;
-		Node *next = nullptr;
+		Node *next;
 
 	}; // end struct Node
 	Node *head;
@@ -39,7 +39,7 @@ public:
 	}
 
 	//--------------------------------------------------
-	SSLL(const SSLL& src) : this(src.this){}
+	SSLL(const SSLL& src){}
 
 	//--------------------------------------------------
 	~SSLL() {
@@ -56,7 +56,7 @@ public:
 	}
 
 
-
+	//Replaces orginal element with specified element, returns orginal
 	T replace(const T& element, int position) {
 		Node * temp = head;
 		T data;
@@ -73,7 +73,9 @@ public:
 			return data;
 
 	}
+	//#done
 
+	//inserts elemenet, and shifts all elements after to the "left"
 	void insert(const T& element, int position) {
 		Node * next = head;
 		Node * prev;
@@ -96,7 +98,9 @@ public:
 		else { push_back(element); }
 		
 	}
+	//#done
 
+	//pushes element to the front of the list
 	void push_front(const T& element) {
 		if (amount == 0){
 			head->data = element;
@@ -109,7 +113,9 @@ public:
 		}
 		++amount;
 	}
+	//#done
 
+	//pushes elemets to the back
 	void push_back(const T& element) {
 		if (amount == 0){
 			head->data = element;
@@ -122,10 +128,20 @@ public:
 		}
 		++amount;	
 	}
-	//TODO
-	T pop_front() {
-	}
+	//#done
 
+	//pops the first element, assigns pointer to temp, replaces head with the next value
+	T pop_front() {
+		T data = head->data;
+		Node * temp = head;
+		head = head->next;
+		delete temp;
+		--amount;
+		return data;
+	}
+	//#done
+
+	//pops elements off the back, moves tail to the previous element
 	T pop_back() {
 		T data = tail->data;
 		if (amount == 1){
@@ -145,9 +161,10 @@ public:
 		--amount;
 		return data;
 	}
+	//#done
 
 
-
+	//Removes an element from the list, from specified location
 	T remove(int position) {
 		Node * prev = head;
 		Node * select;
@@ -182,7 +199,9 @@ public:
 		--amount;
 		return data;
 	}
-	
+	//#done
+
+	//Looks at item at position
 	T item_at(int position) const {
 		Node * select = head;
 		T data;
@@ -192,13 +211,19 @@ public:
 		data = select->data;
 		return data;
 	}
+	//#done
 
+	//Checks for emptiness
 	bool is_empty() const {
 		return (amount == 0 ? true : false);
 	}
+	//#done
 
+	//checks for size
 	int size() const { return amount; }
+	//#done
 
+	//clears list
 	void clear() {
 		Node * temp = head;
 		for (int i = 0; i < amount; i++){
@@ -211,6 +236,7 @@ public:
 		amount = 0;
 	
 	}
+	//done
 
 	bool contains(const T& element,
 		bool equals(const T& a, const T& b)) const {
