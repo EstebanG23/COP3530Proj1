@@ -18,41 +18,13 @@ void in_list(const SSLL<char>& list, char c, std::ostream& out) {
 
 int main(){
 
+	//Creating a list
 	SSLL<int> a;
+	//Curent Size
+	std::cout << "Size: " << a.size();
 
-	a.push_back(4012);
-	a.push_back(1337);
-	a.push_back(231);
-	a.push_back(166);
-	a.push_front(0);
-	a.print(std::cout);
-	
-	//std::cout << "Pop Back Data: " << a.pop_back();
-	std::cout << std::endl << "Size: " << a.size() << std::endl;
-	//std::cout << a.remove(4);
-	std::cout << a.item_at(4);
-	std::cout << std::endl << "Size: " << a.size() << std::endl;
-	std::cout << "True/False: " << a.is_empty() << std::endl;
-	a.clear();
-	
-	a.push_back(1111);
-	std::cout << a.pop_back();
-	std::cout << std::endl << "Size: " << a.size() << std::endl;
-
-	a.print(std::cout);
-	
-	a.push_back(4012);
-	a.push_back(1337);
-	a.push_back(231);
-	a.push_back(166);
-	a.push_front(0);
-	a.insert(3, 5);
-	
-	a.print(std::cout);
-	std::cout << a.replace(76, 0);
-	a.print(std::cout);
-
-
+	//Dave's Test Cases//
+	std::cout << std::endl << std::endl;
 	SSLL<char> l;
 
 	l.print(std::cout);
