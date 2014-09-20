@@ -1,13 +1,12 @@
 #ifndef _SSLL_H_
 #define _SSLL_H_
 
-// SSLL.H
-// 
-// Singly-linked list (non-polymorphic)
-//
-// by Dave Small
-// for COP 3530
-// 201409.16 - created
+
+/*
+Skeleton created by Dave Small
+
+Methods and Logic Written by Joshua Kegley
+*/
 
 #include <iostream>
 

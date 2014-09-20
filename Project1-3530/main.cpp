@@ -1,5 +1,6 @@
 #include <iostream>
-#include "SSLL.H"
+#include "SSLL.h"
+#include "PSLL.h"
 
 /*--------------------------------- Daves Methods  ---------------------------------------*/
 bool same_char(const char& a, const char& b) { // argument for contains()
