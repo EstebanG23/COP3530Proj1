@@ -33,7 +33,7 @@ int main(){
 	a->insert(3, 5);
 	
 	a->print(std::cout);
-
-
+	std::cout << a->replace(76, 1);
+	a->print(std::cout);
 	return 0;
 }

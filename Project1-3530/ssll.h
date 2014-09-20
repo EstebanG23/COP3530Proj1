@@ -58,7 +58,19 @@ public:
 
 
 	T replace(const T& element, int position) {
+		Node * temp = head;
+		T data;
+		for (int i = 0; i <= position; ++i){
+			if (i == position){
+				data = temp->data;
+				temp->data = element;
+			}
+			else{
+				temp = temp->next;
+			}
 
+		}
+			return data;
 
 	}
 
