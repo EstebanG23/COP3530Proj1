@@ -89,25 +89,12 @@ int main(){
 	SDAL<int> al = SDAL<int>(5);
 
 
-	al.push_back(0);
-	al.push_back(1);
 	al.push_back(2);
 	al.push_back(3);
 	al.push_back(4);
+	al.push_front(1);
+	al.push_front(0);
 	
-	al.push_back(5);
-
-	al.push_back(6);
-	al.push_back(7);
-	al.push_back(8);
-	al.push_back(9);
-	al.push_back(10);
-	al.push_back(11);
-	al.push_back(12);
-
-	al.push_back(13);
-	al.push_back(14);
-	al.push_back(15);
 
 
 	al.print(std::cout);
