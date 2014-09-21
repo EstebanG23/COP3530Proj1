@@ -1,6 +1,7 @@
 #include <iostream>
 #include "SSLL.h"
 #include "PSLL.h"
+#include "SDAL.h"
 
 /*--------------------------------- Daves Methods  ---------------------------------------*/
 bool same_char(const char& a, const char& b) { // argument for contains()
@@ -44,7 +45,7 @@ int main(){
 	a = l;
 	a.size();
 	a.print(std::cout);
-	*/
+
 
 
 	PSLL<int> b;
@@ -83,6 +84,37 @@ int main(){
 	std::cout << b.pop_back() << std::endl;
 
 	b.print(std::cout);
+	*/
+
+	SDAL<int> al = SDAL<int>(5);
+
+
+	al.push_back(0);
+	al.push_back(1);
+	al.push_back(2);
+	al.push_back(3);
+	al.push_back(4);
+	
+	al.push_back(5);
+
+	al.push_back(6);
+	al.push_back(7);
+	al.push_back(8);
+	al.push_back(9);
+	al.push_back(10);
+	al.push_back(11);
+	al.push_back(12);
+
+	al.push_back(13);
+	al.push_back(14);
+	al.push_back(15);
+
+
+	al.print(std::cout);
+
+
+
+
 
 	return 0;
 }

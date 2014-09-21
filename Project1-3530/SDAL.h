@@ -14,24 +14,42 @@ Methods and Logic Written by Joshua Kegley
 template <typename T>
 class SDAL {
 private:
-	struct Node {
+	struct Node{
 		T data;
-		Node *next;
-
-	}; // end struct Node
-	Node * head;
-	Node * tail;
-	Node * poolHead;
-	Node * poolTail;
+		int next;
+	};
+	const int DEFAULT = 50;
+	Node ** list;
+	int head;
+	int tail;
+	//length = amount of items in the array
+	int length;
+	//amount = amount of avail space
 	int amount;
-	int poolAmount;
-
 
 
 public:
 
 
 	SDAL() {
+		SDAL(50);
+	}
+
+	SDAL(int size) {
+		list = new Node*[size];
+		head = 0;
+		tail = head;
+		length = size;
+		for (amount = 0; amount < size; ++amount){
+			list[amount] = new Node;
+			if (amount == size - 1){
+				list[amount]->next = -1;
+			}
+			else{
+				list[amount]->next = amount + 1;
+			}
+		}
+		amount = 0;
 
 	}
 
@@ -43,15 +61,13 @@ public:
 
 
 	SDAL& operator=(const SDAL& src) {
-		if (&src == this) // check for self-assignment
+		if (&src == this){ // check for self-assignment
 			return *this;     // do nothing
-
+		}
 		// safely dispose of this SDAL's contents
 		// populate this SDAL with copies of the other SDAL's contents
-		clear();
-		for (int i = 0; i < src.size(); i++){
-			push_back(src.item_at(i));
-		}
+
+
 	}
 
 
@@ -64,8 +80,7 @@ public:
 
 	//inserts elemenet, and shifts all elements after to the "left"
 	void insert(const T& element, int position) {
-	
-
+		
 	}
 	//#done
 
@@ -78,7 +93,18 @@ public:
 
 	//pushes elemets to the back
 	void push_back(const T& element) {
-
+		if (is_full()){
+			grow_list();
+		}
+		if (amount == 0) {
+			list[head]->data = element;
+			tail = list[head]->next;
+		}
+		else{
+			list[tail]->data = element;
+			tail = list[tail]->next;
+		}
+		++amount;
 	}
 	//#done
 
@@ -103,7 +129,7 @@ public:
 
 	//Looks at item at position
 	T item_at(int position) const {
-
+		return list[position]->data;
 	}
 	//#done
 
@@ -117,6 +143,9 @@ public:
 	int size() const { return amount; }
 	//#done
 
+	bool is_full(){
+		return (tail == -1 ? true : false);
+	}
 	//clears list
 	void clear() {
 
@@ -131,8 +160,45 @@ public:
 
 	std::ostream& print(std::ostream& out) const {
 
-
+		for (int i = 0; i < amount; ++i){
+			out << list[i]->data <<  " " << list[i]->next << std::endl;
+		}
+		return out;
 	}
+
+
+	private:
+		void grow_list(){
+			Node ** temp = list;
+			length = (int) (length*1.5);
+			list = new Node*[length];
+			for (int i = 0; i < length; ++i){
+				if (i < amount){
+					list[i] = temp[i];
+					list[i]->next = i+1;
+				}
+				else {
+					list[i] = new Node;
+					if (i != length - 1){
+						list[i]->next = i+1;
+					}
+					else{
+						list[i]->next = -1;
+					}
+				}
+			}
+			delete[] temp;
+			tail = amount;
+		}
+
+		void shrink_list(){
+
+		}
+
+
+
+
+
 
 };
 
