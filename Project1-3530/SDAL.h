@@ -18,10 +18,10 @@ private:
 		T data;
 		int next;
 	};
-	const int DEFAULT = 50;
 	Node ** list;
 	int head;
 	int tail;
+
 	//length = amount of items in the array
 	int length;
 	//amount = amount of avail space
@@ -37,20 +37,13 @@ public:
 
 	SDAL(int size) {
 		list = new Node*[size];
-		head = 0;
-		tail = head;
-		length = size;
-		for (amount = 0; amount < size; ++amount){
+		head = 0; tail = 0;
+		amount = 0; length = size;
+		for (amount; amount < length; ++amount){
 			list[amount] = new Node;
-			if (amount == size - 1){
-				list[amount]->next = -1;
-			}
-			else{
-				list[amount]->next = amount + 1;
-			}
+			list[amount]->next = -1;
 		}
 		amount = 0;
-
 	}
 
 	SDAL(const SDAL& src){}
@@ -87,22 +80,40 @@ public:
 
 	//pushes element to the front of the list
 	void push_front(const T& element) {
+		if (is_full()){
 
+		}
+		if (amount == 0){
+			push_back(element);
+		}
+		else{
+
+		}
+		++amount;
 	}
 	//#done
 
 	//pushes elemets to the back
 	void push_back(const T& element) {
 		if (is_full()){
-			grow_list();
+
 		}
-		if (amount == 0) {
-			list[head]->data = element;
-			tail = list[head]->next;
+		if (amount == 0){
+			head = 0;
+			tail = 0;
+			list[tail]->data = element;
 		}
 		else{
+			int i = tail;
+			while (list[i]->next != -1){
+				if (i = length - 1){
+					i = 0;
+				}
+				++i;
+			}
+			list[tail]->next = i;
+			tail = i;
 			list[tail]->data = element;
-			tail = list[tail]->next;
 		}
 		++amount;
 	}
@@ -144,7 +155,7 @@ public:
 	//#done
 
 	bool is_full(){
-		return (tail == -1 ? true : false);
+		return (amount == length ? true : false);
 	}
 	//clears list
 	void clear() {
@@ -170,25 +181,17 @@ public:
 	private:
 		void grow_list(){
 			Node ** temp = list;
-			length = (int) (length*1.5);
+			length = length*1.5;
 			list = new Node*[length];
 			for (int i = 0; i < length; ++i){
 				if (i < amount){
 					list[i] = temp[i];
-					list[i]->next = i+1;
 				}
-				else {
+				else{
 					list[i] = new Node;
-					if (i != length - 1){
-						list[i]->next = i+1;
-					}
-					else{
-						list[i]->next = -1;
-					}
+					list[i]->next = -1;
 				}
 			}
-			delete[] temp;
-			tail = amount;
 		}
 
 		void shrink_list(){
