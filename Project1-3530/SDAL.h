@@ -87,6 +87,7 @@ public:
 		if (position == 0){
 			push_front(element);
 		}
+
 		else{
 			int temp = is_free();
 			list[temp]->data = element;
@@ -105,7 +106,7 @@ public:
 	//pushes element to the front of the list
 	void push_front(const T& element) {
 		if (is_full()){
-			//do something to make it not full
+			grow_list();
 		}
 		if (amount == 0){
 			list[head]->data = element;
@@ -151,19 +152,24 @@ public:
 			head = 0; 
 			tail = 0;
 		}
+		shrink_list();
 		return data;
 	}//done
 
 	//pops elements off the back, moves tail to the previous element
 	T pop_back() {
+		std::cout << "tail = " << tail;
 		int temp = head;
-		while (list[temp]->next != tail){
+		while (amount != 1 && list[temp]->next != tail){
 			temp = list[temp]->next;
 		}
 		T data = list[tail]->data;
 		list[tail]->next = -1;
 		tail = temp;
+		
 		list[temp]->next = -2;
+		--amount;
+		shrink_list();
 		return data;
 	}//done
 
@@ -184,6 +190,7 @@ public:
 
 		}
 		--amount;
+		shrink_list();
 		return data;
 	}//done
 
@@ -264,14 +271,15 @@ public:
 
 		void shrink_list(){
 			//LOGIC FOR LATER
-			/*
-				Need to shrink list if list is >= 100 and amount < 50
+			/*	Need to shrink list if list is >= 100 and amount < 50
 				Need to reorder all of the items including what they point to. 
-
-
 			*/
+			if (length >= 10 && amount < length / 2){
+				std::cout << "Shrinking List: " << std::endl;
 
 
+
+			}
 		}
 
 		int is_free(){

@@ -22,81 +22,17 @@ int main(){
 
 	SDAL<int> al = SDAL<int>(5);
 
-	al.print(std::cout);
-	std::cout << std::endl << std::endl;
-	/*
-	al.push_back(1);
-	al.push_back(2);
-	al.push_back(3);
-	al.push_front(0);
-	al.push_back(4);
+	//al.print(std::cout);
 
-
-
-
-	al.print(std::cout);
-	*/
-
-	/*std::cout << al.remove(0);
-
-	std::cout << std::endl << std::endl;
-
-	al.print(std::cout);
-
-	al.push_back(4);
-	std::cout << std::endl << std::endl;
-
-	al.print(std::cout);
-	std::cout << std::endl << std::endl;
-
-	std::cout << al.item_at(0);
-
-	al.clear();
-	std::cout << std::endl << std::endl;
-
-	al.print(std::cout);
-	std::cout << std::endl << std::endl;
-	*/
-
-
-	/*al.clear();
-
-	al.print(std::cout);
-	std::cout << std::endl << std::endl;
-	*/
-
-	al.push_back(1);
-	al.push_back(2);
-	al.push_back(3);
-	al.push_front(0);
-	
-	al.insert(250, 2);
-
-	std::cout << std::endl << std::endl;
-
-	al.replace(100, 4);
-
-	al.print(std::cout);
-	std::cout << std::endl << std::endl;
-
-	al.push_back(25);
-
-	al.print(std::cout);
-	std::cout << std::endl << std::endl;
-
-	al.push_back(25);
-	al.push_back(25);
-	al.push_back(25);
-	al.push_back(25);
-	al.push_back(25);
-	al.push_back(25);
-	al.push_back(25);
-	al.push_back(25);
-	al.push_back(25);
-	al.push_back(25);
-
-	al.print(std::cout);
-	std::cout << std::endl << std::endl;
+	for (int i = 0; i < 12; ++i){
+		std::cout << i << std::endl;
+			al.push_back(i);
+	}
+	//al.print(std::cout);
+	std::cout << std::endl;
+	for (int i = 0; i < 12; ++i){
+		std::cout <<"i = " << i << " " << al.pop_back() << std::endl;
+	}
 
 	return 0;
 }
