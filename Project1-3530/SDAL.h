@@ -46,7 +46,7 @@ public:
 		amount = 0;
 	}
 
-	SDAL(const SDAL& src){}
+	SDAL(const SDAL& src):this(src){}
 
 	~SDAL() {}
 
@@ -57,7 +57,15 @@ public:
 		}
 		// safely dispose of this SDAL's contents
 		// populate this SDAL with copies of the other SDAL's contents
-
+		for (int i = 0; i < length; ++i){
+			delete list[i];
+		}
+		delete[] list;
+		head = src.head;
+		tail = src.tail;
+		amount = src.amount;
+		length = src.length;
+		list = src.list;
 	}
 
 
@@ -294,9 +302,8 @@ public:
 				tail = amount - 1;
 				list = temp;
 
-
 			}
-		}
+		}//done
 
 		int is_free(){
 			for (int i = 0; i < length; ++i){
@@ -305,11 +312,11 @@ public:
 				}
 			}
 			return -1;
-		}
+		}//done
 
 		bool is_full(){
 			return (amount == length ? true : false);
-		}
+		}//done
 
 
 

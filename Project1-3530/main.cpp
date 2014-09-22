@@ -21,6 +21,7 @@ void in_list(const SSLL<char>& list, char c, std::ostream& out) {
 int main(){
 
 	SDAL<int> al = SDAL<int>(5);
+	SDAL<int> bl = SDAL<int>(5);
 
 	//al.print(std::cout);
 
@@ -31,9 +32,12 @@ int main(){
 	al.push_front(100);
 	al.print(std::cout);
 	std::cout << std::endl;
-	for (int i = 0; i < 13; ++i){
-		std::cout <<"i = " << i << " " << al.pop_back() << std::endl;
-	}
+	//for (int i = 0; i < 13; ++i){
+		//std::cout <<"i = " << i << " " << al.pop_back() << std::endl;
+	//}
 
+	bl = al;
+	bl.print(std::cout);
+	al.print(std::cout);
 	return 0;
 }
