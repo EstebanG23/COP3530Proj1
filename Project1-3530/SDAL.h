@@ -276,7 +276,23 @@ public:
 			*/
 			if (length >= 10 && amount < length / 2){
 				std::cout << "Shrinking List: " << std::endl;
-
+				int tempLength = length;
+				int position = head;
+				length /= 2;
+				Node ** temp = new Node*[length];
+				for (int i = 0; i < amount; ++i){
+					temp[i] = new Node;
+					temp[i]->data = list[position]->data;
+					temp[i]->next = i + 1;
+					position = list[position]->next;
+				}
+				for (int i = 0; i < tempLength; ++i){
+					delete list[i];
+				}
+				delete[] list;
+				head = 0;
+				tail = amount - 1;
+				list = temp;
 
 
 			}

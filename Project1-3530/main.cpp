@@ -28,9 +28,10 @@ int main(){
 		std::cout << i << std::endl;
 			al.push_back(i);
 	}
-	//al.print(std::cout);
+	al.push_front(100);
+	al.print(std::cout);
 	std::cout << std::endl;
-	for (int i = 0; i < 12; ++i){
+	for (int i = 0; i < 13; ++i){
 		std::cout <<"i = " << i << " " << al.pop_back() << std::endl;
 	}
 
