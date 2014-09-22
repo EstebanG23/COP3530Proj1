@@ -246,7 +246,7 @@ public:
 
 	private:
 		void grow_list(){
-			length = length * 1.5;
+			length = (int)(length * 1.5);
 			Node ** temp = new Node*[length];
 			for (int i = 0; i < length; ++i){
 				if (i < amount){
@@ -263,6 +263,14 @@ public:
 		}
 
 		void shrink_list(){
+			//LOGIC FOR LATER
+			/*
+				Need to shrink list if list is >= 100 and amount < 50
+				Need to reorder all of the items including what they point to. 
+
+
+			*/
+
 
 		}
 
@@ -272,6 +280,7 @@ public:
 					return i;
 				}
 			}
+			return -1;
 		}
 
 		bool is_full(){
