@@ -76,6 +76,7 @@ public:
 		}
 		if (amount == 0){
 			list[head]->data = element;
+			list[head]->next = -2;
 		}
 		else{
 			int temp = head;
@@ -95,12 +96,14 @@ public:
 		}
 		if (amount == 0){
 			list[head]->data = element;
+			list[head]->next = -2;
 
 		}
 		else{
 			list[tail]->next = is_free();
 			tail = list[tail]->next;
 			list[tail]->data = element;
+			list[tail]->next = -2;
 		}
 		++amount;
 	}
@@ -108,19 +111,51 @@ public:
 
 	//pops the first element, assigns pointer to temp, replaces head with the next value
 	T pop_front() {
-
+		T data = list[head]->data;
+		int temp = head;
+		head = list[temp]->next;
+		list[temp]->next = -1;
+		--amount;
+		if (amount == 0){
+			head = 0; 
+			tail = 0;
+		}
+		return data;
 	}
 
 	//pops elements off the back, moves tail to the previous element
 	T pop_back() {
-
+		int temp = head;
+		while (list[temp]->next != tail){
+			temp = list[temp]->next;
+		}
+		T data = list[tail]->data;
+		list[tail]->next = -1;
+		tail = temp;
+		list[temp]->next = -2;
+		return data;
 	}
 
 
 
 	//Removes an element from the list, from specified location
 	T remove(int position) {
+		int temp = head;
+		T data;
+		if (position == 0){
+			data = list[head]->data;
+			head = list[temp]->next;
+			list[temp]->next = -1;
+		}
+		else{
+			for (int i = 1; i < position; ++i){
+				temp = list[temp]->next;
+			}
+			data = list[list[temp]->next]->data;
 
+		}
+		--amount;
+		return data;
 	}
 
 
@@ -146,10 +181,15 @@ public:
 		bool equals(const T& a, const T& b)) const {}
 
 	std::ostream& print(std::ostream& out) const {
-
-		for (int i = 0; i < amount; ++i){
-			out << list[i]->data <<  " " << list[i]->next << std::endl;
+		std::cout << "head: " << head << std::endl;
+		std::cout << "tail: " << tail << std::endl;
+		int temp = head;
+		out << "[";
+		while (temp != -2){
+			out << list[temp]->data << "..." << list[temp]->next << "..." <<  temp << ", ";
+			temp = list[temp]->next;
 		}
+		out << "]";
 		return out;
 	}
 
