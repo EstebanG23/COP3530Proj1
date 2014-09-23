@@ -2,6 +2,7 @@
 #include "SSLL.h"
 #include "PSLL.h"
 #include "SDAL.h"
+#include "CDAL.h"
 
 /*--------------------------------- Daves Methods  ---------------------------------------*/
 bool same_char(const char& a, const char& b) { // argument for contains()
@@ -20,24 +21,12 @@ void in_list(const SSLL<char>& list, char c, std::ostream& out) {
 
 int main(){
 
-	SDAL<int> al = SDAL<int>(5);
-	SDAL<int> bl = SDAL<int>(5);
+	CDAL<int> al;
 
-	//al.print(std::cout);
-
-	for (int i = 0; i < 12; ++i){
-		std::cout << i << std::endl;
-			al.push_back(i);
+	for (int i = 0; i < 75; ++i){
+		al.push_back(5000);
 	}
-	al.push_front(100);
-	al.print(std::cout);
-	std::cout << std::endl;
-	//for (int i = 0; i < 13; ++i){
-		//std::cout <<"i = " << i << " " << al.pop_back() << std::endl;
-	//}
 
-	bl = al;
-	bl.print(std::cout);
-	al.print(std::cout);
+
 	return 0;
 }
