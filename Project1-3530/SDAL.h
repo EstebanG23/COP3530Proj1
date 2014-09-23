@@ -238,7 +238,15 @@ public:
 	}//done
 
 	bool contains(const T& element,
-		bool equals(const T& a, const T& b)) const {}
+		bool equals(const T& a, const T& b)) const {
+
+		for (int i = 0; i < amount; ++i){
+			if (element == list[i]){
+				return true;
+			}
+		}
+		return false;
+	}
 
 	std::ostream& print(std::ostream& out) const {
 
