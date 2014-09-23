@@ -24,9 +24,76 @@ int main(){
 	CDAL<int> al;
 
 	for (int i = 0; i < 75; ++i){
-		al.push_back(5000);
+		al.push_back(i);
 	}
+	/*
+	for (int i = 0; i < 75; ++i){
+		std::cout << " " << al.pop_back() << " " << std::endl;
 
+	}
+		*/
+
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front(); 
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+	std::cout << al.pop_front();
+
+
+
+	//for (int i = 0; i < 50; i++){
+	//	std::cout << "tail->data[" << i << "] = tail->data[" << i + 1 << "]" << std::endl;
+	//}
 
 	return 0;
+
 }

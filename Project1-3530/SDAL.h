@@ -232,7 +232,7 @@ public:
 
 	//clears list
 	void clear() {
-		amount = 0;
+		amount = 0; 
 		for (amount; amount < length; ++amount){
 			list[amount]->next = -1;
 		}

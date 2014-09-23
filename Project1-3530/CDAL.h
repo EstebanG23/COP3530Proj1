@@ -28,7 +28,8 @@ public:
 	CDAL() {
 		head = new Node;
 		tail = head;
-		++nodeAmount;
+		nodeAmount = 1;
+		amount = 0;
 	}
 
 	CDAL(const CDAL& src) :this(src){}
@@ -65,11 +66,15 @@ public:
 
 	//pushes elemets to the back
 	void push_back(const T& element) {
-		if (tail->nodeTail != -1){
-			tail->data[tail->nodeTail] = element;
-			++tail->nodeTail;
-			if (tail->nodeTail = 50){ 
-				tail->nodeTail = -1; 
+		if (tail->nodeTail != 49){
+			if (amount == 0){
+				std::cout << "Should go here" << amount << std::endl;
+				tail->data[tail->nodeTail] = element;
+	
+			}
+			else {
+				++tail->nodeTail;
+				tail->data[tail->nodeTail] = element;
 			}
 		}
 		else{
@@ -77,7 +82,6 @@ public:
 			tail->next = new Node;
 			tail = tail->next;
 			tail->data[tail->nodeTail] = element;
-			++tail->nodeTail;
 			++nodeAmount;
 		}
 	
@@ -86,20 +90,83 @@ public:
 
 	//pops the first element, assigns pointer to temp, replaces head with the next value
 	T pop_front() {
-	
+		T data = head->data[0];
+		tail = head;
+		Node * prev = tail;
+		for (int i = 0; i < nodeAmount; i++){
+			tail->data[0] = tail->data[1];
+			tail->data[1] = tail->data[2];
+			tail->data[2] = tail->data[3];
+			tail->data[3] = tail->data[4];
+			tail->data[4] = tail->data[5];
+			tail->data[5] = tail->data[6];
+			tail->data[6] = tail->data[7];
+			tail->data[7] = tail->data[8];
+			tail->data[8] = tail->data[9];
+			tail->data[9] = tail->data[10];
+			tail->data[10] = tail->data[11];
+			tail->data[11] = tail->data[12];
+			tail->data[12] = tail->data[13];
+			tail->data[13] = tail->data[14];
+			tail->data[14] = tail->data[15];
+			tail->data[15] = tail->data[16];
+			tail->data[16] = tail->data[17];
+			tail->data[17] = tail->data[18];
+			tail->data[18] = tail->data[19];
+			tail->data[19] = tail->data[20];
+			tail->data[20] = tail->data[21];
+			tail->data[21] = tail->data[22];
+			tail->data[22] = tail->data[23];
+			tail->data[23] = tail->data[24];
+			tail->data[24] = tail->data[25];
+			tail->data[25] = tail->data[26];
+			tail->data[26] = tail->data[27];
+			tail->data[27] = tail->data[28];
+			tail->data[28] = tail->data[29];
+			tail->data[29] = tail->data[30];
+			tail->data[30] = tail->data[31];
+			tail->data[31] = tail->data[32];
+			tail->data[32] = tail->data[33];
+			tail->data[33] = tail->data[34];
+			tail->data[34] = tail->data[35];
+			tail->data[35] = tail->data[36];
+			tail->data[36] = tail->data[37];
+			tail->data[37] = tail->data[38];
+			tail->data[38] = tail->data[39];
+			tail->data[39] = tail->data[40];
+			tail->data[40] = tail->data[41];
+			tail->data[41] = tail->data[42];
+			tail->data[42] = tail->data[43];
+			tail->data[43] = tail->data[44];
+			tail->data[44] = tail->data[45];
+			tail->data[45] = tail->data[46];
+			tail->data[46] = tail->data[47];
+			tail->data[47] = tail->data[48];
+			tail->data[48] = tail->data[49];
+			if (i < nodeAmount-1){
+				tail->data[49] = tail->next->data[0];
+			}
+			tail = tail->next;
+		}
+		--amount;
+		return data;
 	}
 
 	//pops elements off the back, moves tail to the previous element
 	T pop_back() {
+		std::cout << "Node Tail: " << tail->nodeTail;
 		T data = tail->data[tail->nodeTail];
-		--tail->nodeTail;
-		if (tail->nodeTail == -1){
-			tail = head
-			for (int i = 0; i < nodeAmount - 1; ++i){
+		if (tail->nodeTail == 0){
+			tail = head;
+			for (int i = 1; i < nodeAmount-1; ++i){
 				tail = tail->next;
 			}
-			tail->nodeTail = 49;
 		}
+		else{
+			--tail->nodeTail;
+		}
+		--amount;
+		return data;
 	}
 
 	//Removes an element from the list, from specified location
