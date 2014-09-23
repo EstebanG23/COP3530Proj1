@@ -48,7 +48,9 @@ public:
 
 	SDAL(const SDAL& src):this(src){}
 
-	~SDAL() {}
+	~SDAL() {
+
+	}
 
 
 	SDAL& operator=(const SDAL& src) {

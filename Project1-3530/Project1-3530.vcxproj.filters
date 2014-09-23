@@ -29,5 +29,8 @@
     <ClInclude Include="SDAL.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
+    <ClInclude Include="CDAL.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

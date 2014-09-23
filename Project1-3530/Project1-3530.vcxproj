@@ -74,6 +74,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CDAL.h" />
     <ClInclude Include="PSLL.h" />
     <ClInclude Include="SDAL.h" />
     <ClInclude Include="SSLL.h" />
