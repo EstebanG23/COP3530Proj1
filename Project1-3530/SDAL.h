@@ -47,6 +47,17 @@ public:
 		}
 		// safely dispose of this SDAL's contents
 		// populate this SDAL with copies of the other SDAL's contents
+		clear();
+		delete[] list;
+
+		tail = src.tail;
+		amount = src.amount;
+		length = src.length;
+		list = new T[length];
+		for (int i = 0; i < amount; ++i){
+			list[i] = src.list[i];
+		}
+
 	}
 
 
@@ -59,6 +70,11 @@ public:
 
 	//inserts elemenet, and shifts all elements after to the "left"
 	void insert(const T& element, int position) {
+		if (amount = length){ grow_list() }
+		if (position < 0){
+			throw std::domain_error("Domain Incorrect: does not take negative integers.");
+		}
+
 		if (amount != length){
 			for (int i = amount; i > position; --i){
 				list[i] = list[i - 1];
@@ -96,6 +112,7 @@ public:
 
 	//Removes an element from the list, from specified location
 	T remove(int position) {
+		if (length >= 100 && amount < length / 2){ shrink_list(); }
 		if (position > amount - 1){
 			throw std::domain_error("Domain Incorrect");
 		}
@@ -112,7 +129,7 @@ public:
 
 	//Looks at item at position
 	T item_at(int position) const { 
-		if (position > amount - 1){
+		if (position > amount - 1 || position < 0){
 			throw std::domain_error("Domain Incorrect");
 		}
 		return list[position];
@@ -135,6 +152,9 @@ public:
 
 	bool contains(const T& element,
 		bool equals(const T& a, const T& b)) const {
+		for (int i = 0; i < amount; ++i){
+			if (list[i] == elemnt){ return true; }
+		}
 	}
 
 	std::ostream& print(std::ostream& out) const {
@@ -154,24 +174,23 @@ public:
 
 	private:
 		void grow_list(){
-		
-
+			length = length * 1.5;
+			T * temp = new T[length];
+			for (int i = 0; i < amount; ++i){
+				temp[i] = list[i]
+			}
+			delete[] list;
+			list = temp;
 		}
 
 		void shrink_list(){
-			//LOGIC FOR LATER
-			/*	Need to shrink list if list is >= 100 and amount < 50
-				Need to reorder all of the items including what they point to. 
-			*/
-			
-		}//done
-
-		int is_free(){
-
-		}//done
-
-		bool is_full(){
-
+			length = length / 2;
+			T * temp = new T[length];
+			for (int i = 0; i < amount; ++i){
+				temp[i] = list[i];
+			}
+			delete[] list;
+			list = temp;
 		}//done
 
 };
