@@ -52,8 +52,9 @@ public:
 
 	//Replaces orginal element with specified element, returns orginal
 	T replace(const T& element, int position) {
-
-	
+		T data = list[position];
+		list[position] = element;
+		return data;
 	}//done
 
 	//inserts elemenet, and shifts all elements after to the "left"
@@ -84,21 +85,36 @@ public:
 
 	//pops the first element, assigns pointer to temp, replaces head with the next value
 	T pop_front() {
-
+		return remove(0);
 	}//done
 
 	//pops elements off the back, moves tail to the previous element
 	T pop_back() {
+		return remove(tail);
 
 	}//done
 
 	//Removes an element from the list, from specified location
 	T remove(int position) {
+		if (position > amount - 1){
+			throw std::domain_error("Domain Incorrect");
+		}
 		
+		
+		T data = list[position];
+		for (int i = position; i < amount; ++i){
+			list[i] = list[i + 1];
+		}
+		tail = tail - 2;
+		--amount;
+		return data;
 	}//done
 
 	//Looks at item at position
 	T item_at(int position) const { 
+		if (position > amount - 1){
+			throw std::domain_error("Domain Incorrect");
+		}
 		return list[position];
 	}//#done
 
@@ -112,6 +128,8 @@ public:
 
 	//clears list
 	void clear() {
+		amount = 0;
+		tail = 0;
 
 	}//done
 
@@ -120,8 +138,18 @@ public:
 	}
 
 	std::ostream& print(std::ostream& out) const {
-
-		
+		for (int i = 0; i < amount; ++i){
+			if (i == 0){
+				out << "[" << list[i] << ",";
+			}
+			else if (i != amount - 1){
+				out << list[i] << ",";
+			}
+			else{
+				out << list[i] << "]";
+			}
+		}
+		return amount != 0 ? out : out << "<empty list>";
 	}//done
 
 	private:

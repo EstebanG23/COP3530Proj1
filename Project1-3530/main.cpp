@@ -1,4 +1,5 @@
 #include <iostream>
+#include <exception>
 #include "SSLL.h"
 #include "PSLL.h"
 #include "SDAL.h"
@@ -20,16 +21,23 @@ void in_list(const SSLL<char>& list, char c, std::ostream& out) {
 
 
 int main(){
-	SDAL<int> al = SDAL<int>(25);
+	SDAL<int> al = SDAL<int>(7);
 
-	al.insert(0, 0);
-	al.insert(2, 0);
-	al.insert(3, 0);
-	al.insert(4, 0);
-	al.insert(5, 4);
+	al.push_back(8);
+	al.push_back(9);
+	al.push_back(10);
+	al.push_back(11);
 	al.push_back(12);
-	std::cout << al.item_at(5);
-
+	al.push_back(13);
+	std::cout << al.remove(5);
+	try{
+	std::cout << al.pop_back();
+	}
+	catch (std::exception e){
+		std::cerr << "\nException: " << e.what() << std::endl;
+	}
+	al.replace(50, 0);
+	al.print(std::cout);
 
 	return 0;
 
