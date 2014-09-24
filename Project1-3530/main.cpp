@@ -20,79 +20,16 @@ void in_list(const SSLL<char>& list, char c, std::ostream& out) {
 
 
 int main(){
+	SDAL<int> al = SDAL<int>(25);
 
-	CDAL<int> al;
+	al.insert(0, 0);
+	al.insert(2, 0);
+	al.insert(3, 0);
+	al.insert(4, 0);
+	al.insert(5, 4);
+	al.push_back(12);
+	std::cout << al.item_at(5);
 
-	for (int i = 0; i < 75; ++i){
-		al.push_back(i);
-	}
-	/*
-	for (int i = 0; i < 75; ++i){
-		std::cout << " " << al.pop_back() << " " << std::endl;
-
-	}
-		*/
-
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front(); 
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-	std::cout << al.pop_front();
-
-
-
-	//for (int i = 0; i < 50; i++){
-	//	std::cout << "tail->data[" << i << "] = tail->data[" << i + 1 << "]" << std::endl;
-	//}
 
 	return 0;
 
