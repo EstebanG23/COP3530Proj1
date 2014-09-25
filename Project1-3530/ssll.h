@@ -62,20 +62,7 @@ public:
 
 
 	//Replaces orginal element with specified element, returns orginal
-	T replace(const T& element, int position) {
-		Node * temp = head;
-		T data;
-		for (int i = 0; i <= position; ++i){
-			if (i == position){
-				data = temp->data;
-				temp->data = element;
-			}
-			else{
-				temp = temp->next;
-			}
-
-		}
-			return data;
+	T replace(const T& element, int position) {	
 
 	}
 	//#done
@@ -83,124 +70,86 @@ public:
 	//inserts elemenet, and shifts all elements after to the "left"
 	void insert(const T& element, int position) {
 		Node * next = head;
-		Node * prev;
+		Node * temp = new Node;
+		temp->data = element;
 
-		if (position != 0 && position != amount - 1){
-			for (int i = 0; i < position; ++i){
-				prev = next;
-				next = next->next;
-				if (position - 1 == i){
-					prev->next = new Node;
-					prev->next->data = element;
-					prev->next->next = next;
-
-				}
-
-			}
-			++amount;
-		}
-		else if (position == 0){ push_front(element); }
-		else { push_back(element); }
-		
-	}
-	//#done
-
-	//pushes element to the front of the list
-	void push_front(const T& element) {
 		if (amount == 0){
 			head->data = element;
 		}
+		else if (position == 0){
+			temp->next = head;
+			head = temp;
+		}
+		else if (position == amount){
+			tail->next = temp;
+			tail = temp;
+		}
 		else{
-			Node *temp = head;
-			head = new Node;
-			head->data = element;
-			head->next = temp;
+			for (int i = 0; i < position - 1; ++i){
+				next = next->next;
+			}
+			temp->next = next->next;
+			next->next = temp;
 		}
 		++amount;
 	}
-	//#done
 
-	//pushes elemets to the back
+
+	void push_front(const T& element) {
+		insert(element, 0);
+	}
+
+
 	void push_back(const T& element) {
-		if (amount == 0){
-			head->data = element;
-		}
-		else {
-			tail->next = new Node;
-			tail = tail->next;
-			tail->data = element;
-			
-		}
-		++amount;	
+		insert(element, tail)
 	}
-	//#done
 
-	//pops the first element, assigns pointer to temp, replaces head with the next value
+
 	T pop_front() {
-		T data = head->data;
-		Node * temp = head;
-		head = head->next;
-		delete temp;
-		--amount;
-		return data;
+		return remove(0);
 	}
-	//#done
 
-	//pops elements off the back, moves tail to the previous element
+
 	T pop_back() {
-		T data = tail->data;
-		if (amount == 1){
-			delete tail;
-			head = new Node;
-			tail = head;
-		}
-		else{
-			delete tail;
-			tail = head;
-			for (int i = 0; i < amount - 2; ++i){
-				tail = tail->next;
-				//std::cout << tail->data << std::endl;
-			}
-		}
-
-		--amount;
-		return data;
+		return remove(amount - 1);
 	}
-	//#done
+
 
 
 	//Removes an element from the list, from specified location
 	T remove(int position) {
+		Node * next = head;
 		Node * prev = head;
-		Node * select;
 		T data;
-		//if position is the last position, handle it differenly, reassign tail. 
-		if (position == amount - 1){
-			tail = head;
-			for (int i = 1; i < position; i++){
-				tail = tail->next;
-				std::cout << "tail position: " << i << tail->data << std::endl;
-				select = tail->next;
-				data = select->data;
-			}
+		if (position == 0){
+			data = next->data;
+			next = next->next;
+			delete head;
+			head = next;
 		}
-		//if it isn't the last or the first, iterate to the one before, set select to the one, and reassign pointer for the one before.
-		else if (position != 0){
-			for (int i = 1; i < position; i++){
-				prev = prev->next;
-				select = prev->next;
-				data = select->data;
+		else if(position == amount - 1){
+			for (int i = 0; i < position - 1; ++i){
+				next = next->next;
+				std::cout << next->data;
+			
+			}
+			data = next->next->data;
+			delete tail;
+			tail = next;
+
+		}
+		else{
+			for (int i = 0; i < position - 1; ++i){
+				next = next->next;
+				std::cout << next->data;
 
 			}
+			data = next->next->data;
+			Node * temp = next->next;
+			next->next = temp->next;
+			delete temp;
 		}
-		//if 0 position, reasign head
-		else{
-			select = head;
-			head = select->next;
-			data = select->data;			
-		}
-		//delete the old!
-		delete select;
+
 		--amount;
 		return data;
 	}
