@@ -78,7 +78,7 @@ public:
 				temp = get_node(i); 
 				if (temp->arrayTail == 4){
 					temp->next = new Node;
-					tail = temp->next;
+					tail = temp->next; 
 					tail->data[0] = temp->data[4];
 					++nodeAmount;
 					++temp->arrayTail;
