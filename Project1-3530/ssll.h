@@ -6,7 +6,7 @@
 Skeleton created by Dave Small
 
 Methods and Logic Written by Joshua Kegley
-*/
+*/ 
 
 #include <iostream>
 
