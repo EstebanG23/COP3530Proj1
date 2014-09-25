@@ -1,7 +1,6 @@
 #ifndef _SSLL_H_
 #define _SSLL_H_
 
-
 /*
 Skeleton created by Dave Small
 
@@ -33,7 +32,7 @@ public:
 	typedef std::size_t size_t;
 	typedef T value_type;
 	typedef SSLL_Iter iterator;
-	typedef SSLL_Const_Iter const_iterator;
+	//typedef SSLL_Const_Iter const_iterator;
 
 	//--------------------------------------------------
 	// Constructors/destructor/assignment operator
@@ -240,14 +239,39 @@ public:
 	}
 
 
+	class SSLL_Iter //: public std::iterator<std::forward_iterator_tag, T>
+	{
+	public:
+		// inheriting from std::iterator<std::forward_iterator_tag, T>
+		// automagically sets up these typedefs...
+		typedef T value_type;
+		typedef std::ptrdiff_t difference_type;
+		typedef T& reference;
+		typedef T* pointer;
+		typedef std::forward_iterator_tag iterator_category;
 
-	iterator begin() { return SSLL_Iter(head); }
-	iterator end() { return SSLL_Iter(); }
+		// but not these typedefs...
+		typedef SSLL_Iter self_type;
+		typedef SSLL_Iter& self_reference;
 
-	const_iterator begin() const { return SSLL_Const_Iter(head); }
-	const_iterator end() const { return SSLL_Const_Iter(); }
+	private:
+		Node* here;
 
+	public:
+		explicit SSLL_Iter(Node* start = NULL) : here(start) {}
+		SSLL_Iter(const SSLL_Iter& src) : here(src.here) {}
 
+		reference operator*() const {}
+		pointer operator->() const {}
+
+		self_reference operator=(const SSLL_Iter& src) {}
+
+		self_reference operator++() {} // preincrement
+		self_type operator++(int) {} // postincrement
+
+		bool operator==(const SSLL_Iter& rhs) const {}
+		bool operator!=(const SSLL_Iter& rhs) const {}
+	}; // end SSLL_Iter 
 
 }; 
  

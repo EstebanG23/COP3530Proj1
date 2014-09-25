@@ -33,4 +33,9 @@
       <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="SSLL_Iter.h">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>
