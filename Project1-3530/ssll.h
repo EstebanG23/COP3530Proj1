@@ -125,7 +125,7 @@ public:
 			data = next->data;
 			next = next->next;
 			delete head;
-			head = next;
+			head = next; 
 		}
 		else if(position == amount - 1){
 			for (int i = 0; i < position - 1; ++i){
