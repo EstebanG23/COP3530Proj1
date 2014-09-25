@@ -70,7 +70,7 @@ public:
 
 	//inserts elemenet, and shifts all elements after to the "left"
 	void insert(const T& element, int position) {
-		if (amount = length){ grow_list(); }
+		if (amount == length){ grow_list(); }
 		if (position < 0){
 			throw std::domain_error("Domain Incorrect: does not take negative integers.");
 		}
@@ -81,12 +81,8 @@ public:
 			}
 			list[position] = element;
 		}
-		else{
-			grow_list();
-			insert(element, position);
-		}
-		++tail;
 		++amount;
+		tail = amount - 1;
 	}//done
 
 	//pushes element to the front of the list
@@ -174,12 +170,13 @@ public:
 
 	private:
 		void grow_list(){
-			length = length * 1.5;
+			length = (int)(length * 1.5);
 			T * temp = new T[length];
 			for (int i = 0; i < amount; ++i){
-				temp[i] = list[i]
+				temp[i] = list[i];
 			}
 			delete[] list;
+			tail = amount-1;
 			list = temp;
 		}
 
@@ -190,6 +187,7 @@ public:
 				temp[i] = list[i];
 			}
 			delete[] list;
+			tail = amount - 1;
 			list = temp;
 		}//done
 
