@@ -12,6 +12,7 @@ int main(){
 		for (int i = 0; i < 150; ++i){
 			al.push_front(i);
 		}
+		std::cout << std::endl << std::endl << std::endl;
 		for (int i = 0; i < 50; ++i){
 			std::cout << al.pop_back() << std::endl;
 		}

@@ -70,6 +70,7 @@ public:
 
 	//inserts elemenet, and shifts all elements after to the "left"
 	void insert(const T& element, int position) {
+		std::cout << element;
 		if (amount == length){ grow_list(); }
 		if (position < 0){
 			throw std::domain_error("Domain Incorrect: does not take negative integers.");
@@ -118,8 +119,9 @@ public:
 		for (int i = position; i < amount; ++i){
 			list[i] = list[i + 1];
 		}
-		tail = tail - 2;
 		--amount;
+		tail = amount - 1;
+		
 		return data;
 	}//done
 
