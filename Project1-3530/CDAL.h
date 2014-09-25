@@ -14,9 +14,9 @@ template <typename T>
 class CDAL {
 private:
 	struct Node{
-		T data[50];
+		T data[5];
 		Node * next;
-		int nodeTail = 0;
+		int arrayTail = 0;
 	};
 	Node * head;
 	Node * tail;
@@ -52,10 +52,51 @@ public:
 	//Replaces orginal element with specified element, returns orginal
 	T replace(const T& element, int position) {
 		
-	}
+	}/*	
+	 struct Node{
+		T data[5];
+		Node * next;
+		int arrayTail = 0;
+	};
+	Node * head;
+	Node * tail;
+	int amount;
+	int nodeAmount;
+	*/
 
 	//inserts elemenet, and shifts all elements after to the "left"
 	void insert(const T& element, int position) {
+
+		int nodePosition = position / 5;
+		int arrayPosition = position % 5;
+
+		Node * temp;
+
+		if (arrayPosition == 0){
+			//insert onto top, push everything back;
+			for (int i = nodeAmount; i > 0; --i){
+				temp = get_node(i); 
+				if (temp->arrayTail == 4){
+					temp->next = new Node;
+					tail = temp->next;
+					tail->data[0] = temp->data[4];
+					++nodeAmount;
+					++temp->arrayTail;
+				}
+				for (int i = temp->arrayTail; i > 0; --i){
+					temp->data[i] = temp->data[i - 1];
+				}
+			}
+			head->data[0] = element;
+			if (head->arrayTail != 4){
+				++head->arrayTail;
+			}
+			
+		}
+
+		
+
+		++amount;
 		
 	}
 
@@ -66,61 +107,16 @@ public:
 
 	//pushes elemets to the back
 	void push_back(const T& element) {
-		if (tail->nodeTail != 49){
-			if (amount == 0){
-				std::cout << "Should go here" << amount << std::endl;
-				tail->data[tail->nodeTail] = element;
-	
-			}
-			else {
-				++tail->nodeTail;
-				tail->data[tail->nodeTail] = element;
-			}
-		}
-		else{
-			std::cout << "Creating New Node" << amount << std::endl; 
-			tail->next = new Node;
-			tail = tail->next;
-			tail->data[tail->nodeTail] = element;
-			++nodeAmount;
-		}
-	
-		++amount;
+
 	}
 
 	//pops the first element, assigns pointer to temp, replaces head with the next value
 	T pop_front() {
-		T data = head->data[0];
-		tail = head;
-		Node * prev = tail;
-		for (int i = 0; i < nodeAmount; i++){
-			for (int j = 0; j < amount; j++){
-				tail[j]->.
-			}
-			if (i < nodeAmount-1){
-				tail->data[49] = tail->next->data[0];
-			}
-			tail = tail->next;
-		}
-		--amount;
-		return data;
+
 	}
 
 	//pops elements off the back, moves tail to the previous element
 	T pop_back() {
-		std::cout << "Node Tail: " << tail->nodeTail;
-		T data = tail->data[tail->nodeTail];
-		if (tail->nodeTail == 0){
-			tail = head;
-			for (int i = 1; i < nodeAmount-1; ++i){
-				tail = tail->next;
-			}
-		}
-		else{
-			--tail->nodeTail;
-		}
-		--amount;
-		return data;
 	}
 
 	//Removes an element from the list, from specified location
@@ -152,28 +148,24 @@ public:
 	}
 
 	std::ostream& print(std::ostream& out) const {
-
-		
+		Node * temp = tail;
+		std::cout << nodeAmount << "..." << amount << "..." << std::endl;
+			for (int j = 0; j < temp->arrayTail; ++j){
+				out << temp->data[j] << " ";
+			}
+	
+		return out;
 	}
 
 private:
-	void grow_list(){
-		
-	}
 
-	void shrink_list(){
-			
-	}
-
-	int is_free(){
-		
-	}
-
-	bool is_node_full(){
-		if (tail->nodeTail = -1){
-			return true;
+	Node* get_node(int position){
+		Node * next = head;
+		for (int i = 1; i < position; ++i){
+			next = next->next;
 		}
-		return false;
+
+		return next;
 	}
 
 

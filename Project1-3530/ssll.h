@@ -22,10 +22,18 @@ private:
 	}; // end struct Node
 	Node *head;
 	Node *tail;
-	int amount;
+	size_t amount;
 
 
 public:
+
+	//--------------------------------------------------
+	// types
+	//--------------------------------------------------
+	typedef std::size_t size_t;
+	typedef T value_type;
+	typedef SSLL_Iter iterator;
+	typedef SSLL_Const_Iter const_iterator;
 
 	//--------------------------------------------------
 	// Constructors/destructor/assignment operator
@@ -174,13 +182,13 @@ public:
 	//#done
 
 	//checks for size
-	int size() const { return amount; }
+	size_t size() const { return amount; }
 	//#done
 
 	//clears list
 	void clear() {
 		Node * temp = head;
-		for (int i = 0; i < amount; i++){
+		for (int i = 0; i < (int)amount; i++){
 			tail = temp;
 			temp = temp->next;
 			delete tail;
@@ -230,6 +238,16 @@ public:
 		return out;
 	
 	}
+
+
+
+	iterator begin() { return SSLL_Iter(head); }
+	iterator end() { return SSLL_Iter(); }
+
+	const_iterator begin() const { return SSLL_Const_Iter(head); }
+	const_iterator end() const { return SSLL_Const_Iter(); }
+
+
 
 }; 
  
