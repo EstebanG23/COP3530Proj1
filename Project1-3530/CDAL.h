@@ -52,48 +52,82 @@ public:
 	//Replaces orginal element with specified element, returns orginal
 	T replace(const T& element, int position) {
 		
-	}/*	
-	 struct Node{
-		T data[5];
-		Node * next;
-		int arrayTail = 0;
-	};
-	Node * head;
-	Node * tail;
-	int amount;
-	int nodeAmount;
-	*/
+	}
+	 
 
 	//inserts elemenet, and shifts all elements after to the "left"
 	void insert(const T& element, int position) {
 
-		int nodePosition = position / 5;
-		int arrayPosition = position % 5;
-
-		Node * temp;
-
-		if (arrayPosition == 0){
-			//insert onto top, push everything back;
-			for (int i = nodeAmount; i > 0; --i){
-				temp = get_node(i); 
-				if (temp->arrayTail == 4){
-					temp->next = new Node;
-					tail = temp->next; 
-					tail->data[0] = temp->data[4];
-					++nodeAmount;
-					++temp->arrayTail;
-				}
-				for (int i = temp->arrayTail; i > 0; --i){
-					temp->data[i] = temp->data[i - 1];
-				}
-			}
-			head->data[0] = element;
-			if (head->arrayTail != 4){
-				++head->arrayTail;
-			}
-			
+		if (is_full()){
+			grow();
 		}
 
+
+		Node * temp = tail;
+		Node * prev;
+		////////////////////////////FOR ENTERING AT HEAD//////////////////////////////////
+		if (position == 0){
+			for (int i = nodeAmount; i > 0; --i){
+				prev = temp;
+				for (int j = prev->arrayTail; j > 0; --j){
+					if (j < 5){
+						prev->data[j] = prev->data[j - 1];
+					}				
+				}
+				
+				temp = get_node(i-1);
+				if (i == 1){
+					temp->data[0] = element;
+					if (head->arrayTail < 4){
+						++head->arrayTail;
+					}
+					else{
+						++tail->arrayTail;
+					}
+				}
+				else{
+					prev->data[0] = temp->data[4];
+				}
+			}
+		}
+		////////////////////////////FOR ENTERING AT TAIL//////////////////////////////////
+		else if (position == amount){
+			temp->data[position % 5] = element;
+			++temp->arrayTail;
+		}
+		////////////////////////////FOR ENTERING ELSE WHERE//////////////////////////////////
+
+		else{
+			int nodePosition = position / 5;
+			int arrayPosition = (position % 5);
+			std::cout << nodePosition << ">>>" << arrayPosition << std::endl;
+			
+			
+			for (int i = nodeAmount; i > nodePosition; --i){
+				std::cout << temp << std::endl;
+				prev = temp;
+				if (i - 1 != nodePosition){
+					for (int i = temp->arrayTail; i > 0; --i){
+						temp->data[i] = temp->data[i - 1];
+					}
+				}
+				else{
+					for (int i = temp->arrayTail; i > arrayPosition; --i){
+						if (i < 5){
+						temp->data[i] = temp->data[i - 1];
+						}
+					}
+					temp->data[arrayPosition] = element;
+
+				}
+				if (temp == tail){ ++temp->arrayTail; }
+				temp = get_node(i - 1);
+				prev->data[0] = temp->data[4];
+
+			}
+
+
+		}
 		
 
 		++amount;
@@ -107,7 +141,7 @@ public:
 
 	//pushes elemets to the back
 	void push_back(const T& element) {
-
+		insert(element, amount);
 	}
 
 	//pops the first element, assigns pointer to temp, replaces head with the next value
@@ -148,23 +182,43 @@ public:
 	}
 
 	std::ostream& print(std::ostream& out) const {
-		Node * temp = tail;
-		std::cout << nodeAmount << "..." << amount << "..." << std::endl;
-			for (int j = 0; j < temp->arrayTail; ++j){
-				out << temp->data[j] << " ";
+		Node * temp = head;
+		std::cout << "Nodes: " << nodeAmount << std::endl;
+		std::cout << "Amount: " << amount << std::endl;
+		std::cout << "Max Size: " << nodeAmount * 5 << std::endl;
+		std::cout << "head: " << head << std::endl;
+		std::cout << "tail: " << tail << std::endl;
+
+		for (int i = 0; i < nodeAmount; ++i){
+			out << "(((Node#: " << i << " " << temp << " tail: "<< temp->arrayTail << " [";
+			for (int j = 0; j <= temp->arrayTail-1; ++j){
+					out << temp->data[j] << " ";
 			}
-	
+			out << "] " << ")))" << std::endl;
+			temp = temp->next;
+		}
+
 		return out;
 	}
 
 private:
+
+	bool is_full(){
+		return (amount == 5 * nodeAmount) ? true : false;
+	}
+	
+	void grow(){
+		tail->next = new Node;
+		tail = tail->next;
+		++nodeAmount;
+	}
+
 
 	Node* get_node(int position){
 		Node * next = head;
 		for (int i = 1; i < position; ++i){
 			next = next->next;
 		}
-
 		return next;
 	}
 

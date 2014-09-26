@@ -1,5 +1,7 @@
 #ifndef _SSLL_H_
 #define _SSLL_H_
+#include <cstddef>
+
 
 /*
 Skeleton created by Dave Small
@@ -25,6 +27,40 @@ private:
 
 
 public:
+	class SSLL_Iter //: public std::iterator<std::forward_iterator_tag, T>
+	{
+	public:
+		// inheriting from std::iterator<std::forward_iterator_tag, T>
+		// automagically sets up these typedefs...
+		typedef T value_type;
+		typedef std::ptrdiff_t difference_type;
+		typedef T& reference;
+		typedef T* pointer;
+		typedef std::forward_iterator_tag iterator_category;
+
+		// but not these typedefs...
+		typedef SSLL_Iter self_type;
+		typedef SSLL_Iter& self_reference;
+
+	private:
+		Node* here;
+
+	public:
+		explicit SSLL_Iter(Node* start = NULL) : here(start) {}
+		SSLL_Iter(const SSLL_Iter& src) : here(src.here) {}
+
+		reference operator*() const {}
+		pointer operator->() const {}
+
+		self_reference operator=(const SSLL_Iter& src) {}
+
+		self_reference operator++() {} // preincrement
+		self_type operator++(int) {} // postincrement
+
+		bool operator==(const SSLL_Iter& rhs) const {}
+		bool operator!=(const SSLL_Iter& rhs) const {}
+	}; // end SSLL_Iter 
+
 
 	//--------------------------------------------------
 	// types
@@ -239,40 +275,7 @@ public:
 	}
 
 
-	class SSLL_Iter //: public std::iterator<std::forward_iterator_tag, T>
-	{
-	public:
-		// inheriting from std::iterator<std::forward_iterator_tag, T>
-		// automagically sets up these typedefs...
-		typedef T value_type;
-		typedef std::ptrdiff_t difference_type;
-		typedef T& reference;
-		typedef T* pointer;
-		typedef std::forward_iterator_tag iterator_category;
-
-		// but not these typedefs...
-		typedef SSLL_Iter self_type;
-		typedef SSLL_Iter& self_reference;
-
-	private:
-		Node* here;
-
-	public:
-		explicit SSLL_Iter(Node* start = NULL) : here(start) {}
-		SSLL_Iter(const SSLL_Iter& src) : here(src.here) {}
-
-		reference operator*() const {}
-		pointer operator->() const {}
-
-		self_reference operator=(const SSLL_Iter& src) {}
-
-		self_reference operator++() {} // preincrement
-		self_type operator++(int) {} // postincrement
-
-		bool operator==(const SSLL_Iter& rhs) const {}
-		bool operator!=(const SSLL_Iter& rhs) const {}
-	}; // end SSLL_Iter 
-
+	
 }; 
  
 #endif
