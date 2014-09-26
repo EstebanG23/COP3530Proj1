@@ -51,7 +51,19 @@ public:
 
 	//Replaces orginal element with specified element, returns orginal
 	T replace(const T& element, int position) {
-		
+		if (position > amount - 1 || position < 0){
+			throw std::domain_error("Domain Error: Position doesn't exist");
+		}
+		int nodePosition = position / 5;
+		int arrayPosition = position % 5;
+		T data;
+		Node * temp = head;
+		for (int i = 0; i < nodePosition; ++i){
+			temp = temp->next;
+		}
+		data = temp->data[arrayPosition];
+		temp->data[arrayPosition] = element;
+		return data;
 	}
 	 
 
@@ -100,11 +112,11 @@ public:
 		else{
 			int nodePosition = position / 5;
 			int arrayPosition = (position % 5);
-			std::cout << nodePosition << ">>>" << arrayPosition << std::endl;
+			//std::cout << nodePosition << ">>>" << arrayPosition << std::endl;
 			
 			
 			for (int i = nodeAmount; i > nodePosition; --i){
-				std::cout << temp << std::endl;
+				//std::cout << temp << std::endl;
 				prev = temp;
 				if (i - 1 != nodePosition){
 					for (int i = temp->arrayTail; i > 0; --i){
@@ -114,7 +126,7 @@ public:
 				else{
 					for (int i = temp->arrayTail; i > arrayPosition; --i){
 						if (i < 5){
-						temp->data[i] = temp->data[i - 1];
+							temp->data[i] = temp->data[i - 1];
 						}
 					}
 					temp->data[arrayPosition] = element;
@@ -122,7 +134,10 @@ public:
 				}
 				if (temp == tail){ ++temp->arrayTail; }
 				temp = get_node(i - 1);
-				prev->data[0] = temp->data[4];
+				if (i - 1 == nodePosition){}
+				else{
+					prev->data[0] = temp->data[4];
+				}
 
 			}
 
@@ -136,7 +151,7 @@ public:
 
 	//pushes element to the front of the list
 	void push_front(const T& element) {
-
+		insert(element, 0);
 	}
 
 	//pushes elemets to the back
@@ -155,12 +170,53 @@ public:
 
 	//Removes an element from the list, from specified location
 	T remove(int position) {
-		
+		int nodePosition = position / 5;
+		int arrayPosition = position % 5;
+		T data;
+		Node * prev;
+		Node * temp = get_node(nodePosition + 1);
+		//std::cout << temp << std::endl;
+		data = temp->data[arrayPosition];
+		for (int i = nodePosition; i < nodeAmount; ++i){
+			prev = temp;
+			if (i == nodePosition){
+				//std::cout << "First Node, Position: " << arrayPosition << std::endl;
+				for (int j = arrayPosition; j < 4; ++j){
+					prev->data[j] = prev->data[j + 1];
+				}
+			}
+			else{
+				temp = temp->next;
+				//std::cout << "Node After: " << temp << std::endl;
+				//prev->data[4] = temp->data[0];
+				for (int j = 0; j < 4; ++j){
+					if (j == 0){
+						prev->data[4] = temp->data[0];
+					}
+					temp->data[j] = temp->data[j + 1];
+				}
+				
+			}
+			
+		}
+
+		--amount;
+		tail = get_node((amount / 5) + 1);
+		--tail->arrayTail;
+		return data;
 	}
 
 	//Looks at item at position
 	T item_at(int position) const {
-
+		int nodePosition = position / 5;
+		int arrayPosition = position % 5;
+		T data;
+		Node * temp = head;
+		for (int i = 0; i < nodePosition; ++i){
+			temp = temp->next;
+		}
+		data = temp->data[arrayPosition];
+		return data;
 	}
 
 	//Checks for emptiness
@@ -189,7 +245,7 @@ public:
 		std::cout << "head: " << head << std::endl;
 		std::cout << "tail: " << tail << std::endl;
 
-		for (int i = 0; i < nodeAmount; ++i){
+		for (int i = 0; i < amount/5 + 1; ++i){
 			out << "(((Node#: " << i << " " << temp << " tail: "<< temp->arrayTail << " [";
 			for (int j = 0; j <= temp->arrayTail-1; ++j){
 					out << temp->data[j] << " ";

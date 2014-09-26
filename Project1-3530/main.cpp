@@ -33,18 +33,41 @@ int main(){
 	CD.push_back(19);
 	CD.push_back(20);
 	CD.push_back(21);
-	CD.insert(100, 21);
+	CD.push_back(22);
 	CD.push_back(23);
 	CD.push_back(24);
 	CD.push_back(25);
-	CD.insert(21, 21);
 	CD.push_back(26);
 	CD.push_back(27);
 	CD.push_back(28);
 	CD.push_back(29);
-	CD.insert(30, 31);
+	CD.push_back(30);
 	CD.push_back(31);
+	CD.push_back(32);
+
+
+
+	std::cout << CD.replace(1000,32)<<std::endl;
+	std::cout << CD.item_at(33) << std::endl;
+
 	CD.print(std::cout);
+	std::cout << std::endl;
+
+
+	std::cout << "Removing: " << CD.remove(0);
+	std::cout << "Removing: " << CD.remove(0);
+	std::cout << "Removing: " << CD.remove(0);
+	std::cout << "Removing: " << CD.remove(0);
+	std::cout << "Removing: " << CD.remove(0);
+	std::cout << "Removing: " << CD.remove(0);
+	std::cout << "Removing: " << CD.remove(0);
+
+	std::cout << std::endl;
+
+
+
+	CD.print(std::cout);
+	std::cout << std::endl;
 
 	return 0;
 
