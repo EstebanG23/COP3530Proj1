@@ -14,7 +14,7 @@ template <typename T>
 class CDAL {
 private:
 	struct Node{
-		T data[5];
+		T data[50];
 		Node * next;
 		int arrayTail = 0;
 	};
@@ -54,8 +54,8 @@ public:
 		if (position > amount - 1 || position < 0){
 			throw std::domain_error("Domain Error: Position doesn't exist");
 		}
-		int nodePosition = position / 5;
-		int arrayPosition = position % 5;
+		int nodePosition = position / 50;
+		int arrayPosition = position % 50;
 		T data;
 		Node * temp = head;
 		for (int i = 0; i < nodePosition; ++i){
@@ -82,7 +82,7 @@ public:
 			for (int i = nodeAmount; i > 0; --i){
 				prev = temp;
 				for (int j = prev->arrayTail; j > 0; --j){
-					if (j < 5){
+					if (j < 50){
 						prev->data[j] = prev->data[j - 1];
 					}				
 				}
@@ -90,7 +90,7 @@ public:
 				temp = get_node(i-1);
 				if (i == 1){
 					temp->data[0] = element;
-					if (head->arrayTail < 4){
+					if (head->arrayTail < 49){
 						++head->arrayTail;
 					}
 					else{
@@ -98,20 +98,20 @@ public:
 					}
 				}
 				else{
-					prev->data[0] = temp->data[4];
+					prev->data[0] = temp->data[49];
 				}
 			}
 		}
 		////////////////////////////FOR ENTERING AT TAIL//////////////////////////////////
 		else if (position == amount){
-			temp->data[position % 5] = element;
+			temp->data[position % 50] = element;
 			++temp->arrayTail;
 		}
 		////////////////////////////FOR ENTERING ELSE WHERE//////////////////////////////////
 
 		else{
-			int nodePosition = position / 5;
-			int arrayPosition = (position % 5);
+			int nodePosition = position / 50;
+			int arrayPosition = (position % 50);
 			//std::cout << nodePosition << ">>>" << arrayPosition << std::endl;
 			
 			
@@ -125,7 +125,7 @@ public:
 				}
 				else{
 					for (int i = temp->arrayTail; i > arrayPosition; --i){
-						if (i < 5){
+						if (i < 50){
 							temp->data[i] = temp->data[i - 1];
 						}
 					}
@@ -136,7 +136,7 @@ public:
 				temp = get_node(i - 1);
 				if (i - 1 == nodePosition){}
 				else{
-					prev->data[0] = temp->data[4];
+					prev->data[0] = temp->data[49];
 				}
 
 			}
@@ -161,17 +161,18 @@ public:
 
 	//pops the first element, assigns pointer to temp, replaces head with the next value
 	T pop_front() {
-
+		return remove(0);
 	}
 
 	//pops elements off the back, moves tail to the previous element
 	T pop_back() {
+		return remove(amount - 1);
 	}
 
 	//Removes an element from the list, from specified location
 	T remove(int position) {
-		int nodePosition = position / 5;
-		int arrayPosition = position % 5;
+		int nodePosition = position / 50;
+		int arrayPosition = position % 50;
 		T data;
 		Node * prev;
 		Node * temp = get_node(nodePosition + 1);
@@ -181,17 +182,17 @@ public:
 			prev = temp;
 			if (i == nodePosition){
 				//std::cout << "First Node, Position: " << arrayPosition << std::endl;
-				for (int j = arrayPosition; j < 4; ++j){
+				for (int j = arrayPosition; j < 49; ++j){
 					prev->data[j] = prev->data[j + 1];
 				}
 			}
 			else{
 				temp = temp->next;
 				//std::cout << "Node After: " << temp << std::endl;
-				//prev->data[4] = temp->data[0];
-				for (int j = 0; j < 4; ++j){
+				//prev->data[49] = temp->data[0];
+				for (int j = 0; j < 49; ++j){
 					if (j == 0){
-						prev->data[4] = temp->data[0];
+						prev->data[49] = temp->data[0];
 					}
 					temp->data[j] = temp->data[j + 1];
 				}
@@ -201,15 +202,18 @@ public:
 		}
 
 		--amount;
-		tail = get_node((amount / 5) + 1);
+		tail = get_node((amount / 50) + 1);
 		--tail->arrayTail;
+		if (tail->arrayTail == 0){
+			tail = get_node(amount / 50);
+		}
 		return data;
 	}
 
 	//Looks at item at position
 	T item_at(int position) const {
-		int nodePosition = position / 5;
-		int arrayPosition = position % 5;
+		int nodePosition = position / 50;
+		int arrayPosition = position % 50;
 		T data;
 		Node * temp = head;
 		for (int i = 0; i < nodePosition; ++i){
@@ -239,28 +243,28 @@ public:
 
 	std::ostream& print(std::ostream& out) const {
 		Node * temp = head;
+		std::cout << std::endl << std::endl;
 		std::cout << "Nodes: " << nodeAmount << std::endl;
 		std::cout << "Amount: " << amount << std::endl;
-		std::cout << "Max Size: " << nodeAmount * 5 << std::endl;
+		std::cout << "Max Size: " << nodeAmount * 50 << std::endl;
 		std::cout << "head: " << head << std::endl;
 		std::cout << "tail: " << tail << std::endl;
-
-		for (int i = 0; i < amount/5 + 1; ++i){
-			out << "(((Node#: " << i << " " << temp << " tail: "<< temp->arrayTail << " [";
-			for (int j = 0; j <= temp->arrayTail-1; ++j){
-					out << temp->data[j] << " ";
+		out << "0[";
+		for (int i = 0; i < amount; ++i){
+			if (i != 0 && i % 50 == 0){
+				out << "]" << std::endl << std::endl << i / 50 << "[";
+				temp = temp->next;
 			}
-			out << "] " << ")))" << std::endl;
-			temp = temp->next;
+			out << temp->data[i%50] << " ";
 		}
-
+		out << "]";
 		return out;
 	}
 
 private:
 
 	bool is_full(){
-		return (amount == 5 * nodeAmount) ? true : false;
+		return (amount == 50 * nodeAmount) ? true : false;
 	}
 	
 	void grow(){
