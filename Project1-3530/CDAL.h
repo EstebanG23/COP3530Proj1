@@ -35,7 +35,6 @@ public:
 	CDAL(const CDAL& src) :this(src){}
 
 	~CDAL() {
-
 	}
 
 
@@ -207,6 +206,10 @@ public:
 		if (tail->arrayTail == 0){
 			tail = get_node(amount / 50);
 		}
+		if (amount <= (nodeAmount * 50) / 2){
+			shrink();
+		}
+
 		return data;
 	}
 
@@ -273,7 +276,20 @@ private:
 		++nodeAmount;
 	}
 
-
+	void shrink(){
+		std::cout << "SHRINKING" << std::endl;
+		Node * temp = get_node(nodeAmount);
+		for(int i = nodeAmount; i > ((nodeAmount / 2) + 1); --i){
+			delete temp;
+			
+			temp = get_node(nodeAmount);
+			--nodeAmount;
+			std::cout << "Temp: ";
+			std::cout << temp << std::endl;
+		}
+		tail = get_node((nodeAmount / 2));
+	}
+	
 	Node* get_node(int position){
 		Node * next = head;
 		for (int i = 1; i < position; ++i){
