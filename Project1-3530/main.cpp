@@ -5,6 +5,7 @@
 #include "SDAL.h"
 #include "CDAL.h"
 
+using namespace cop3530;
 
 int main(){
 	

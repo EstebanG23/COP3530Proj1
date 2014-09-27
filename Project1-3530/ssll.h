@@ -11,271 +11,271 @@ Methods and Logic Written by Joshua Kegley
 
 #include <iostream>
 
+namespace cop3530 {
 
-
-template <typename T>
-class SSLL {
-private:
-	struct Node {
-		T data;
-		Node *next;
-
-	}; // end struct Node
-	Node *head;
-	Node *tail;
-	size_t amount;
-
-
-public:
-	class SSLL_Iter //: public std::iterator<std::forward_iterator_tag, T>
-	{
-	public:
-		// inheriting from std::iterator<std::forward_iterator_tag, T>
-		// automagically sets up these typedefs...
-		typedef T value_type;
-		typedef std::ptrdiff_t difference_type;
-		typedef T& reference;
-		typedef T* pointer;
-		typedef std::forward_iterator_tag iterator_category;
-
-		// but not these typedefs...
-		typedef SSLL_Iter self_type;
-		typedef SSLL_Iter& self_reference;
-
+	template <typename T>
+	class SSLL {
 	private:
-		Node* here;
+		struct Node {
+			T data;
+			Node *next;
+
+		}; // end struct Node
+		Node *head;
+		Node *tail;
+		size_t amount;
+
 
 	public:
-		explicit SSLL_Iter(Node* start = NULL) : here(start) {}
-		SSLL_Iter(const SSLL_Iter& src) : here(src.here) {}
+		class SSLL_Iter //: public std::iterator<std::forward_iterator_tag, T>
+		{
+		public:
+			// inheriting from std::iterator<std::forward_iterator_tag, T>
+			// automagically sets up these typedefs...
+			typedef T value_type;
+			typedef std::ptrdiff_t difference_type;
+			typedef T& reference;
+			typedef T* pointer;
+			typedef std::forward_iterator_tag iterator_category;
 
-		reference operator*() const {}
-		pointer operator->() const {}
+			// but not these typedefs...
+			typedef SSLL_Iter self_type;
+			typedef SSLL_Iter& self_reference;
 
-		self_reference operator=(const SSLL_Iter& src) {}
+		private:
+			Node* here;
 
-		self_reference operator++() {} // preincrement
-		self_type operator++(int) {} // postincrement
+		public:
+			explicit SSLL_Iter(Node* start = NULL) : here(start) {}
+			SSLL_Iter(const SSLL_Iter& src) : here(src.here) {}
 
-		bool operator==(const SSLL_Iter& rhs) const {}
-		bool operator!=(const SSLL_Iter& rhs) const {}
-	}; // end SSLL_Iter 
+			reference operator*() const {}
+			pointer operator->() const {}
+
+			self_reference operator=(const SSLL_Iter& src) {}
+
+			self_reference operator++() {} // preincrement
+			self_type operator++(int) {} // postincrement
+
+			bool operator==(const SSLL_Iter& rhs) const {}
+			bool operator!=(const SSLL_Iter& rhs) const {}
+		}; // end SSLL_Iter 
 
 
-	//--------------------------------------------------
-	// types
-	//--------------------------------------------------
-	typedef std::size_t size_t;
-	typedef T value_type;
-	typedef SSLL_Iter iterator;
-	//typedef SSLL_Const_Iter const_iterator;
+		//--------------------------------------------------
+		// types
+		//--------------------------------------------------
+		typedef std::size_t size_t;
+		typedef T value_type;
+		typedef SSLL_Iter iterator;
+		//typedef SSLL_Const_Iter const_iterator;
 
-	//--------------------------------------------------
-	// Constructors/destructor/assignment operator
-	//--------------------------------------------------
+		//--------------------------------------------------
+		// Constructors/destructor/assignment operator
+		//--------------------------------------------------
 
-	SSLL() {
-		amount = 0;
-		tail = new Node();
-		head = tail;
-	}
-
-	//--------------------------------------------------
-	SSLL(const SSLL& src):this(src){}
-
-	//--------------------------------------------------
-	~SSLL() {
-		// safely dispose of this SSLL's contents
-		clear();
-		delete head;
-	}
-
-	//--------------------------------------------------
-	SSLL& operator=(const SSLL& src) {
-		if (&src == this) // check for self-assignment
-			return *this;     // do nothing
-
-		// safely dispose of this SSLL's contents
-		// populate this SSLL with copies of the other SSLL's contents
-		clear();
-		for (int i = 0; i < src.size(); i++){
-			push_back(src.item_at(i));
+		SSLL() {
+			amount = 0;
+			tail = new Node();
+			head = tail;
 		}
-	}
 
+		//--------------------------------------------------
+		SSLL(const SSLL& src) :this(src){}
 
-	//Replaces orginal element with specified element, returns orginal
-	T replace(const T& element, int position) {	
-
-	}
-	//#done
-
-	//inserts elemenet, and shifts all elements after to the "left"
-	void insert(const T& element, int position) {
-		Node * next = head;
-		Node * temp = new Node;
-		temp->data = element;
-
-		if (amount == 0){
-			head->data = element;
-		}
-		else if (position == 0){
-			temp->next = head;
-			head = temp;
-		}
-		else if (position == amount){
-			tail->next = temp;
-			tail = temp;
-		}
-		else{
-			for (int i = 0; i < position - 1; ++i){
-				next = next->next;
-			}
-			temp->next = next->next;
-			next->next = temp;
-		}
-		++amount;
-	}
-
-
-	void push_front(const T& element) {
-		insert(element, 0);
-	}
-
-
-	void push_back(const T& element) {
-		insert(element, tail)
-	}
-
-
-	T pop_front() {
-		return remove(0);
-	}
-
-
-	T pop_back() {
-		return remove(amount - 1);
-	}
-
-
-
-	//Removes an element from the list, from specified location
-	T remove(int position) {
-		Node * next = head;
-		Node * prev = head;
-		T data;
-		if (position == 0){
-			data = next->data;
-			next = next->next;
+		//--------------------------------------------------
+		~SSLL() {
+			// safely dispose of this SSLL's contents
+			clear();
 			delete head;
-			head = next; 
 		}
-		else if(position == amount - 1){
-			for (int i = 0; i < position - 1; ++i){
-				next = next->next;
-				std::cout << next->data;
-			
+
+		//--------------------------------------------------
+		SSLL& operator=(const SSLL& src) {
+			if (&src == this) // check for self-assignment
+				return *this;     // do nothing
+
+			// safely dispose of this SSLL's contents
+			// populate this SSLL with copies of the other SSLL's contents
+			clear();
+			for (int i = 0; i < src.size(); i++){
+				push_back(src.item_at(i));
 			}
-			data = next->next->data;
-			delete tail;
-			tail = next;
+		}
+
+
+		//Replaces orginal element with specified element, returns orginal
+		T replace(const T& element, int position) {
 
 		}
-		else{
-			for (int i = 0; i < position - 1; ++i){
-				next = next->next;
-				std::cout << next->data;
+		//#done
 
+		//inserts elemenet, and shifts all elements after to the "left"
+		void insert(const T& element, int position) {
+			Node * next = head;
+			Node * temp = new Node;
+			temp->data = element;
+
+			if (amount == 0){
+				head->data = element;
 			}
-			data = next->next->data;
-			Node * temp = next->next;
-			next->next = temp->next;
-			delete temp;
-		}
-
-		--amount;
-		return data;
-	}
-	//#done
-
-	//Looks at item at position
-	T item_at(int position) const {
-		Node * select = head;
-		T data;
-		for (int i = 0; i < position; i++){
-			select = select->next;
-		}
-		data = select->data;
-		return data;
-	}
-	//#done
-
-	//Checks for emptiness
-	bool is_empty() const {
-		return (amount == 0 ? true : false);
-	}
-	//#done
-
-	//checks for size
-	size_t size() const { return amount; }
-	//#done
-
-	//clears list
-	void clear() {
-		Node * temp = head;
-		for (int i = 0; i < (int)amount; i++){
-			tail = temp;
-			temp = temp->next;
-			delete tail;
-		}
-		head = new Node;
-		tail = head;
-		amount = 0;
-	
-	}
-	//done
-
-	bool contains(const T& element,
-		bool equals(const T& a, const T& b)) const {
-
-		Node* temp = head;
-		for (int i = 0; i < amount; i++){
-			if (temp->data == element){
-				return true;
+			else if (position == 0){
+				temp->next = head;
+				head = temp;
 			}
-			temp = temp->next;
-		}
-		return false;
-	}
-
-	std::ostream& print(std::ostream& out) const {
-		Node * temp = head;
-		if (this->is_empty()){
-			out << "<empty list>";
-		}
-		else{
-			out << "[";
-			for (int i = 0; i < amount; i++){
-				if (i == amount - 1){
-					out << temp->data;
-
-					
+			else if (position == amount){
+				tail->next = temp;
+				tail = temp;
+			}
+			else{
+				for (int i = 0; i < position - 1; ++i){
+					next = next->next;
 				}
-				else{
-				out << temp->data << ",";
+				temp->next = next->next;
+				next->next = temp;
+			}
+			++amount;
+		}
 
+
+		void push_front(const T& element) {
+			insert(element, 0);
+		}
+
+
+		void push_back(const T& element) {
+			insert(element, tail)
+		}
+
+
+		T pop_front() {
+			return remove(0);
+		}
+
+
+		T pop_back() {
+			return remove(amount - 1);
+		}
+
+
+
+		//Removes an element from the list, from specified location
+		T remove(int position) {
+			Node * next = head;
+			Node * prev = head;
+			T data;
+			if (position == 0){
+				data = next->data;
+				next = next->next;
+				delete head;
+				head = next;
+			}
+			else if (position == amount - 1){
+				for (int i = 0; i < position - 1; ++i){
+					next = next->next;
+					std::cout << next->data;
+
+				}
+				data = next->next->data;
+				delete tail;
+				tail = next;
+
+			}
+			else{
+				for (int i = 0; i < position - 1; ++i){
+					next = next->next;
+					std::cout << next->data;
+
+				}
+				data = next->next->data;
+				Node * temp = next->next;
+				next->next = temp->next;
+				delete temp;
+			}
+
+			--amount;
+			return data;
+		}
+		//#done
+
+		//Looks at item at position
+		T item_at(int position) const {
+			Node * select = head;
+			T data;
+			for (int i = 0; i < position; i++){
+				select = select->next;
+			}
+			data = select->data;
+			return data;
+		}
+		//#done
+
+		//Checks for emptiness
+		bool is_empty() const {
+			return (amount == 0 ? true : false);
+		}
+		//#done
+
+		//checks for size
+		size_t size() const { return amount; }
+		//#done
+
+		//clears list
+		void clear() {
+			Node * temp = head;
+			for (int i = 0; i < (int)amount; i++){
+				tail = temp;
+				temp = temp->next;
+				delete tail;
+			}
+			head = new Node;
+			tail = head;
+			amount = 0;
+
+		}
+		//done
+
+		bool contains(const T& element,
+			bool equals(const T& a, const T& b)) const {
+
+			Node* temp = head;
+			for (int i = 0; i < amount; i++){
+				if (temp->data == element){
+					return true;
 				}
 				temp = temp->next;
 			}
-			out << "]";
+			return false;
 		}
-		
-		return out;
-	
-	}
+
+		std::ostream& print(std::ostream& out) const {
+			Node * temp = head;
+			if (this->is_empty()){
+				out << "<empty list>";
+			}
+			else{
+				out << "[";
+				for (int i = 0; i < amount; i++){
+					if (i == amount - 1){
+						out << temp->data;
 
 
-	
-}; 
- 
+					}
+					else{
+						out << temp->data << ",";
+
+					}
+					temp = temp->next;
+				}
+				out << "]";
+			}
+
+			return out;
+
+		}
+
+
+
+	};
+}//end namepace
 #endif
