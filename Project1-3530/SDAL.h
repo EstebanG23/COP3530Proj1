@@ -1,6 +1,7 @@
 #ifndef _SDAL_H_
 #define _SDAL_H_
-
+#include <exception>
+#include <new> 
 /*
 Skeleton created by Dave Small
 
@@ -155,13 +156,13 @@ namespace cop3530 {
 
 		SDAL() {
 			length = 50;
-			list = new T[50];
+			list = get_new_T(length);
 			amount = 0;
 		}
 
 		SDAL(int size) {
 			length = size;
-			list = new T[size];
+			list = get_new_T(length);
 			amount = 0;
 		}
 
@@ -194,6 +195,10 @@ namespace cop3530 {
 
 		//Replaces orginal element with specified element, returns orginal
 		T replace(const T& element, int position) {
+			if (position < 0 || position > amount){
+				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
+				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+			}
 			T data = list[position];
 			list[position] = element;
 			return data;
@@ -202,8 +207,9 @@ namespace cop3530 {
 		//inserts elemenet, and shifts all elements after to the "left"
 		void insert(const T& element, int position) {
 			if (amount == length){ grow_list(); }
-			if (position < 0 ){
-				throw std::domain_error("Domain Incorrect: does not take negative integers.");
+			if (position < 0 || position > amount + 1){
+				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
+				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
 			}
 
 			if (amount != length){
@@ -240,10 +246,10 @@ namespace cop3530 {
 		//Removes an element from the list, from specified location
 		T remove(int position) {
 			if (length >= 100 && amount < length / 2){ shrink_list(); }
-			if (position > amount - 1){
-				throw std::domain_error("Domain Incorrect");
+			if (position < 0 || position > amount){
+				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
+				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
 			}
-
 
 			T data = list[position];
 			for (int i = position; i < amount; ++i){
@@ -257,8 +263,9 @@ namespace cop3530 {
 
 		//Looks at item at position
 		T item_at(int position) const {
-			if (position > amount - 1 || position < 0){
-				throw std::domain_error("Domain Incorrect");
+			if (position < 0 || position > amount){
+				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
+				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
 			}
 			return list[position];
 		}//#done
@@ -303,7 +310,9 @@ namespace cop3530 {
 	private:
 		void grow_list(){
 			length = (int)(length * 1.5);
-			T * temp = new T[length];
+
+			T * temp = get_new_T(length);
+			
 			for (int i = 0; i < amount; ++i){
 				temp[i] = list[i];
 			}
@@ -314,7 +323,9 @@ namespace cop3530 {
 
 		void shrink_list(){
 			length = length / 2;
-			T * temp = new T[length];
+			
+			T * temp = get_new_T(length);
+			
 			for (int i = 0; i < amount; ++i){
 				temp[i] = list[i];
 			}
@@ -322,6 +333,19 @@ namespace cop3530 {
 			tail = amount - 1;
 			list = temp;
 		}//done
+		T* get_new_T(size_t length){
+			try
+			{		
+				return new T[length];
+			}
+			catch (std::bad_alloc)
+			{
+				std::cerr << "Memory Allocation Failed "<< std::endl;
+			}
+			return 0;
+		}
+
+
 
 	};
 }//end namespace

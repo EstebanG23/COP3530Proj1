@@ -41,8 +41,7 @@ int main(){
 	for (cop3530::PSLL<char>::iterator iter = list1.begin(); iter != list1.end(); ++iter){
 		std::cout << *iter << std::endl;
 	}
-	*/
-	
+
 	cop3530::CDAL<int> list2;
 
 	for (int i = 0; i < 201; ++i){
@@ -70,6 +69,19 @@ int main(){
 		std::cout << *const_iter << std::endl;
 	}
 	
+	*/
+
+	cop3530::SDAL<int> SD;
+
+
+	for (int i = 0; i < 10000; ++i){
+		SD.push_back(i);
+	}
+
+
+	for (int i = 0; i < 10000; ++i){
+		std::cout<< SD.pop_front() << " ";
+	}
 
 	return 0;
 
