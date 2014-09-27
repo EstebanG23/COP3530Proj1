@@ -236,7 +236,13 @@ public:
 
 	//clears list
 	void clear() {
-
+		Node * temp = head;
+		for (int i = 0; i < nodeAmount; ++i){
+			head = head->next;
+			delete temp;
+			temp = head;
+		}
+		head = new Node;
 	}
 
 	bool contains(const T& element,
@@ -255,7 +261,7 @@ public:
 		out << "0[";
 		for (int i = 0; i < amount; ++i){
 			if (i != 0 && i % 50 == 0){
-				out << "]" << std::endl << std::endl << i / 50 << "[";
+				out << "]" << std::endl << std::endl << i / 50 << "Node: " << temp << "[";
 				temp = temp->next;
 			}
 			out << temp->data[i%50] << " ";
@@ -279,15 +285,14 @@ private:
 	void shrink(){
 		std::cout << "SHRINKING" << std::endl;
 		Node * temp = get_node(nodeAmount);
-		for(int i = nodeAmount; i > ((nodeAmount / 2) + 1); --i){
-			delete temp;
-			
-			temp = get_node(nodeAmount);
-			--nodeAmount;
+		for(int i = nodeAmount-1; i > ((nodeAmount / 2) + 1); --i){
 			std::cout << "Temp: ";
 			std::cout << temp << std::endl;
+			delete temp;
+			
+			temp = get_node(--nodeAmount);
 		}
-		tail = get_node((nodeAmount / 2));
+		tail = get_node((nodeAmount));
 	}
 	
 	Node* get_node(int position){

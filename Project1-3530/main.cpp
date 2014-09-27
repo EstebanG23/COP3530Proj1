@@ -11,16 +11,6 @@ int main(){
 	CDAL<int> CD = CDAL<int>();
 
 
-	for (int i = 0; i < 300; ++i){
-		CD.push_back(i);
-	}
-	CD.print(std::cout);
-	for (int i = 0; i < 150; ++i){
-		CD.pop_back();
-	}
-
-
-	CD.print(std::cout);
 	return 0;
 
 }
