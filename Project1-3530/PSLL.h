@@ -148,6 +148,9 @@ namespace cop3530 {
 		typedef PSLL_Iter iterator;
 		typedef PSLL_Const_Iter const_iterator;
 		
+		//--------------------------------------------------
+		// Iterator Begin & Begin Helpers
+		//--------------------------------------------------
 
 		iterator begin() { return PSLL_Iter(head); }
 		iterator end() { return PSLL_Iter(tail->next); }

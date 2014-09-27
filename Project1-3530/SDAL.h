@@ -23,10 +23,140 @@ namespace cop3530 {
 		int length;
 
 	public:
+		class SDAL_Iter //: public std::iterator<std::forward_iterator_tag, T>
+		{
+		public:
+			// inheriting from std::iterator<std::forward_iterator_tag, T>
+			// automagically sets up these typedefs...
+			typedef T value_type;
+			typedef std::ptrdiff_t difference_type;
+			typedef T& reference;
+			typedef T* pointer;
+			typedef std::forward_iterator_tag iterator_category;
+
+			// but not these typedefs...
+			typedef SDAL_Iter self_type;
+			typedef SDAL_Iter& self_reference;
+
+		private:
+			int * here;
+
+		public:
+			explicit SDAL_Iter(int * start = NULL) : here(start) {}
+			SDAL_Iter(const SDAL_Iter& src) : here(src.here) {}
+
+			reference operator*() const { return item_at(here); }
+			pointer operator->() const { return here; }
+			self_reference operator=(const SDAL_Iter& src) {
+				delete this;
+				*this = src;
+			}//done
+
+			self_reference operator++() {
+				here = ++here;
+				return *this;
+			} // preincrement
+			self_type operator++(int) {
+				SDAL_iter temp(*this);
+				here = ++here;
+				return here;
+			} // postincrement
+
+			bool operator==(const SDAL_Iter& rhs) const {
+				if (here == rhs.here){
+					return true;
+				}
+				return false;
+			}//done
+			bool operator!=(const SDAL_Iter& rhs) const {
+				if (item_at(here) != rhs.item_at(here)){
+					return true;
+				}
+				return false;
+			}
+		}; // end SDAL_Iter 
+
+
+	public:
+		class SDAL_Const_Iter //: public std::iterator<std::forward_iterator_tag, T>
+		{
+		public:
+			// inheriting from std::iterator<std::forward_iterator_tag, T>
+			// automagically sets up these typedefs...
+			typedef T value_type;
+			typedef std::ptrdiff_t difference_type;
+			typedef const T& reference;
+			typedef const T* pointer;
+			typedef std::forward_iterator_tag iterator_category;
+
+			// but not these typedefs...
+			typedef SDAL_Const_Iter self_type;
+			typedef SDAL_Const_Iter& self_reference;
+
+		private:
+			const int here;
+
+		public:
+			explicit SDAL_Const_Iter(int start = -1) : here(start) {}
+			SDAL_Const_Iter(const SDAL_Const_Iter& src) : here(src.here) {}
+
+			reference operator*() const { return item_at(here); }//done
+			pointer operator->() const { return here; }//done
+
+			self_reference operator=(const SDAL_Const_Iter& src) {
+				delete this;
+				*this = src;
+			}//done
+
+			self_reference operator++() {
+				here = here->next;
+				return *this;
+			} // preincrement//done
+			self_type operator++(int) {
+				SSLL_iter temp(*this);
+				here = here->next;
+				return here;
+			} // postincrement//done
+
+			bool operator==(const SDAL_Const_Iter& rhs) const {
+				if (here == rhs.here){
+					return true;
+				}
+				return false;
+			}//done
+
+			bool operator!=(const SDAL_Const_Iter& rhs) const {
+				if (here != rhs.here){
+					return true;
+				}
+				return false;
+			}
+		}; // end SDAL_Iter 
+
+		//--------------------------------------------------
+		// types
+		//--------------------------------------------------
+
+		typedef std::size_t size_t;
+		typedef T value_type;
+		typedef SDAL_Iter iterator;
+		typedef SDAL_Const_Iter const_iterator;
+
+		//--------------------------------------------------
+		// Iterator Begin & Begin Helpers
+		//--------------------------------------------------
+
+		iterator begin() { return SDAL_Iter(0); }
+		iterator end() { return SDAL_Iter(0); }
+
+		const_iterator begin() const { return SDAL_Const_Iter(0); }
+		const_iterator end() const { return SDAL_Const_Iter(0); }
 
 
 		SDAL() {
-			SDAL(50);
+			length = 50;
+			list = new T[50];
+			amount = 0;
 		}
 
 		SDAL(int size) {
@@ -71,7 +201,6 @@ namespace cop3530 {
 
 		//inserts elemenet, and shifts all elements after to the "left"
 		void insert(const T& element, int position) {
-			std::cout << element;
 			if (amount == length){ grow_list(); }
 			if (position < 0){
 				throw std::domain_error("Domain Incorrect: does not take negative integers.");

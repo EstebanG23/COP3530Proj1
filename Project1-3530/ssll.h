@@ -146,6 +146,17 @@ namespace cop3530 {
 		typedef SSLL_Const_Iter const_iterator;
 
 		//--------------------------------------------------
+		// Iterator Begin & Begin Helpers
+		//--------------------------------------------------
+
+
+		iterator begin() { return SSLL_Iter(head); }
+		iterator end() { return SSLL_Iter(tail->next); }
+
+		const_iterator begin() const { return SSLL_Const_Iter(head); }
+		const_iterator end() const { return SSLL_Const_Iter(tail->next); }
+
+		//--------------------------------------------------
 		// Constructors/destructor/assignment operator
 		//--------------------------------------------------
 
@@ -364,14 +375,6 @@ namespace cop3530 {
 
 		}
 
-		//////////////////////////ITERATOR MEMEBERS/////////////////////////////////////
-
-
-		iterator begin() { return SSLL_Iter(head); }
-		iterator end() { return SSLL_Iter(tail->next); }
-
-		const_iterator begin() const { return SSLL_Const_Iter(head); }
-		const_iterator end() const { return SSLL_Const_Iter(tail->next); }
 	};
 }//end namepace
 #endif
