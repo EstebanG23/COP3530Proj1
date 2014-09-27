@@ -39,13 +39,13 @@ namespace cop3530 {
 			typedef SDAL_Iter& self_reference;
 
 		private:
-			int * here;
+			T * here;
 
 		public:
-			explicit SDAL_Iter(int * start = NULL) : here(start) {}
+			explicit SDAL_Iter(T * start = NULL) : here(start) {}
 			SDAL_Iter(const SDAL_Iter& src) : here(src.here) {}
 
-			reference operator*() const { return item_at(here); }
+			reference operator*() const { return *here; }
 			pointer operator->() const { return here; }
 			self_reference operator=(const SDAL_Iter& src) {
 				delete this;
@@ -69,7 +69,7 @@ namespace cop3530 {
 				return false;
 			}//done
 			bool operator!=(const SDAL_Iter& rhs) const {
-				if (item_at(here) != rhs.item_at(here)){
+				if (here != rhs.here){
 					return true;
 				}
 				return false;
@@ -97,10 +97,10 @@ namespace cop3530 {
 			const int here;
 
 		public:
-			explicit SDAL_Const_Iter(int start = -1) : here(start) {}
+			explicit SDAL_Const_Iter(T * start = NULL) : here(start) {}
 			SDAL_Const_Iter(const SDAL_Const_Iter& src) : here(src.here) {}
 
-			reference operator*() const { return item_at(here); }//done
+			reference operator*() const { return *here; }//done
 			pointer operator->() const { return here; }//done
 
 			self_reference operator=(const SDAL_Const_Iter& src) {
@@ -146,11 +146,11 @@ namespace cop3530 {
 		// Iterator Begin & Begin Helpers
 		//--------------------------------------------------
 
-		iterator begin() { return SDAL_Iter(0); }
-		iterator end() { return SDAL_Iter(0); }
+		iterator begin() { return SDAL_Iter(&list[0]); }
+		iterator end() { return SDAL_Iter(&list[length]); }
 
 		const_iterator begin() const { return SDAL_Const_Iter(0); }
-		const_iterator end() const { return SDAL_Const_Iter(0); }
+		const_iterator end() const { return SDAL_Const_Iter(&list[length]); }
 
 
 		SDAL() {
@@ -202,7 +202,7 @@ namespace cop3530 {
 		//inserts elemenet, and shifts all elements after to the "left"
 		void insert(const T& element, int position) {
 			if (amount == length){ grow_list(); }
-			if (position < 0){
+			if (position < 0 ){
 				throw std::domain_error("Domain Incorrect: does not take negative integers.");
 			}
 
@@ -213,7 +213,7 @@ namespace cop3530 {
 				list[position] = element;
 			}
 			++amount;
-			tail = amount - 1;
+			++tail;
 		}//done
 
 		//pushes element to the front of the list
@@ -250,7 +250,7 @@ namespace cop3530 {
 				list[i] = list[i + 1];
 			}
 			--amount;
-			tail = amount - 1;
+			--tail;
 
 			return data;
 		}//done

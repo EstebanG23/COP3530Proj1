@@ -9,7 +9,7 @@ using namespace cop3530;
 
 int main(){
 
-	
+	/*
 	cop3530::SSLL<char> list;
 
 
@@ -31,6 +31,7 @@ int main(){
 	}
 	
 
+	*/
 	/*
 	cop3530::PSLL<char> list1;
 
@@ -41,20 +42,27 @@ int main(){
 		std::cout << *iter << std::endl;
 	}
 	*/
-	/*
+	
 	cop3530::SDAL<char> list2;
 
-	list2.push_back('k');
-	list2.push_back('i');
-	list2.push_back('l');
-	list2.push_back('l');
+	list2.push_back('1');
+	list2.push_back('2');
+	list2.push_back('3');
+	list2.push_back('4');
 	
 	
-	//for (cop3530::SDAL<char>::iterator iter = list2.begin(); iter != list2.end(); ++iter){
-	//	std::cout << *iter << std::endl;
-	//}
+	for (cop3530::SDAL<char>::iterator iter = list2.begin(); iter != list2.end(); ++iter){
+		std::cout << *iter << std::endl;
+		*iter = *iter - 1;
+	}
 
-	*/
+
+	for (cop3530::SDAL<char>::iterator iter = list2.begin(); iter != list2.end(); ++iter){
+		std::cout << *iter << std::endl;
+		*iter = *iter - 1;
+	}
+
+
 	return 0;
 
 }
