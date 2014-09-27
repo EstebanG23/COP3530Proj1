@@ -147,6 +147,15 @@ namespace cop3530 {
 		typedef T value_type;
 		typedef PSLL_Iter iterator;
 		typedef PSLL_Const_Iter const_iterator;
+		
+
+		iterator begin() { return PSLL_Iter(head); }
+		iterator end() { return PSLL_Iter(tail->next); }
+
+		const_iterator begin() const { return PSLL_Const_Iter(head); }
+		const_iterator end() const { return PSLL_Const_Iter(tail->next); }
+
+
 
 		//--------------------------------------------------
 		// Constructors/destructor/assignment operator
@@ -282,7 +291,6 @@ namespace cop3530 {
 				tail = head;
 				for (int i = 0; i < amount - 2; ++i){
 					tail = tail->next;
-					//std::cout << tail->data << std::endl;
 				}
 			}
 
@@ -302,7 +310,6 @@ namespace cop3530 {
 				tail = head;
 				for (int i = 1; i < position; i++){
 					tail = tail->next;
-					std::cout << "tail position: " << i << tail->data << std::endl;
 					select = tail->next;
 					data = select->data;
 				}
@@ -407,13 +414,10 @@ namespace cop3530 {
 	private:
 		//pushes all emptied, unused nodes to the back
 		void push_pool(Node* src){
-			std::cout << "Pool size: ";
-			std::cout << poolAmount << std::endl;
 			if (amount >= 100 && poolAmount > amount / 2){
 				delete src;
 				int i = poolAmount / 2;
 				while (poolAmount > i){
-					std::cout << "Trying to delete half nodes" << std::endl;
 					Node * temp = poolHead;
 					poolHead = poolHead->next;
 					delete temp;

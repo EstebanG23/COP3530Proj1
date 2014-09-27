@@ -32,6 +32,14 @@ int main(){
 
 	*/
 
+	cop3530::PSLL<char> list;
+
+	list.push_back('y');
+	list.push_back('x');
+	
+	for (cop3530::PSLL<char>::iterator iter = list.begin(); iter != list.end(); ++iter){
+		std::cout << *iter << std::endl;
+	}
 
 
 	return 0;
