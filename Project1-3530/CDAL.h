@@ -16,7 +16,7 @@ namespace cop3530 {
 	private:
 		struct Node{
 			T data[50];
-			Node * next;
+			Node * next = NULL;
 			int arrayTail = 0;
 		};
 		Node * head;
@@ -25,6 +25,171 @@ namespace cop3530 {
 		int nodeAmount;
 
 	public:
+		class CDAL_Iter //: public std::iterator<std::forward_iterator_tag, T>
+		{
+		public:
+			// inheriting from std::iterator<std::forward_iterator_tag, T>
+			// automagically sets up these typedefs...
+			typedef T value_type;
+			typedef std::ptrdiff_t difference_type;
+			typedef T& reference;
+			typedef T* pointer;
+			typedef std::forward_iterator_tag iterator_category;
+
+			// but not these typedefs...
+			typedef CDAL_Iter self_type;
+			typedef CDAL_Iter& self_reference;
+
+		private:
+			Node * node;
+			T * here;
+			int i = 0;
+
+		public:
+			explicit CDAL_Iter(Node * head = NULL, T * start = NULL) : here(start), node(head) {}
+			CDAL_Iter(const CDAL_Iter& src) : here(src.here), node(src.node) {}
+
+			reference operator*() const { return *here; }
+			pointer operator->() const { return here; }
+			self_reference operator=(const CDAL_Iter& src) {
+				delete this;
+				*this = src;
+			}//done
+
+			self_reference operator++() {
+				++i;
+				if (i == 50 && node->next != NULL){
+					node = node->next;
+					here = &node->data[0];
+					i = 0;
+				}
+				else{
+					++here;
+				}
+				return *this;
+			} // preincrement
+			self_type operator++(int) {
+				CDAL_Iter temp(*this);
+				++i;
+				if (i == 50 && node->next != NULL){
+					node = node->next;
+					here = &node->data[0];
+					i = 0;
+				}
+				else{
+					++here;
+				}
+				return temp;
+			} // postincrement
+
+			bool operator==(const CDAL_Iter& rhs) const {
+				if (here == rhs.here){
+					return true;
+				}
+				return false;
+			}//done
+			bool operator!=(const CDAL_Iter& rhs) const {
+				if (here != rhs.here){
+					return true;
+				}
+				return false;
+			}
+		}; // end CDAL_Iter 
+
+
+	public:
+		class CDAL_Const_Iter //: public std::iterator<std::forward_iterator_tag, T>
+		{
+		public:
+			// inheriting from std::iterator<std::forward_iterator_tag, T>
+			// automagically sets up these typedefs...
+			typedef T value_type;
+			typedef std::ptrdiff_t difference_type;
+			typedef const T& reference;
+			typedef const T* pointer;
+			typedef std::forward_iterator_tag iterator_category;
+
+			// but not these typedefs...
+			typedef CDAL_Const_Iter self_type;
+			typedef CDAL_Const_Iter& self_reference;
+
+		private:
+			const Node * node;
+			const T * here;
+			int i = 0;
+
+		public:
+			explicit CDAL_Const_Iter(Node * head = NULL, T * start = NULL) : here(start), node(head) {}
+			CDAL_Const_Iter(const CDAL_Const_Iter& src) : here(src.here), node(src.node) {}
+
+			reference operator*() const { return *here; }//done
+			pointer operator->() const { return here; }//done
+
+			self_reference operator=(const CDAL_Const_Iter& src) {
+				delete this;
+				*this = src;
+			}//done
+
+			self_reference operator++() {
+				++i;
+				if (i == 50 && node->next != NULL){
+					node = node->next;
+					here = &node->data[0];
+					i = 0;
+				}
+				else{
+					++here;
+				}
+				return *this;
+			} // preincrement//done
+			self_type operator++(int) {
+				CDAL_Const_Iter temp(*this);
+				++i;
+				if (i == 50 && node->next != NULL){
+					node = node->next;
+					here = &node->data[0];
+					i = 0;
+				}
+				else{
+					++here;
+				}
+				return temp;
+			} // postincrement//done
+
+			bool operator==(const CDAL_Const_Iter& rhs) const {
+				if (here == rhs.here){
+					return true;
+				}
+				return false;
+			}//done
+
+			bool operator!=(const CDAL_Const_Iter& rhs) const {
+				if (here != rhs.here){
+					return true;
+				}
+				return false;
+			}
+		}; // end CDAL_Iter 
+
+		//--------------------------------------------------
+		// types
+		//--------------------------------------------------
+
+		typedef std::size_t size_t;
+		typedef T value_type;
+		typedef CDAL_Iter iterator;
+		typedef CDAL_Const_Iter const_iterator;
+
+		//--------------------------------------------------
+		// Iterator Begin & Begin Helpers
+		//--------------------------------------------------
+
+		iterator begin() { return CDAL_Iter(head, &head->data[0]); }
+		iterator end() { return CDAL_Iter(tail, &tail->data[tail->arrayTail]); }
+
+		const_iterator begin() const { return CDAL_Const_Iter(head, &head->data[0]); }
+		const_iterator end() const { return CDAL_Const_Iter(tail, &tail->data[tail->arrayTail]); }
+
 
 		CDAL() {
 			head = new Node;
@@ -33,7 +198,7 @@ namespace cop3530 {
 			amount = 0;
 		}
 
-		CDAL(const CDAL& src) :this(src){}
+		CDAL(const CDAL& src){ *this = src; }
 
 		~CDAL() {
 		}
@@ -45,7 +210,11 @@ namespace cop3530 {
 			}
 			// safely dispose of this CDAL's contents
 			// populate this CDAL with copies of the other CDAL's contents
-
+			clear();
+			for (int i = 0; i < (int)src.size(); ++i){
+				push_back(src.item_at(i));
+			}
+			return *this;
 		}
 
 
@@ -244,6 +413,10 @@ namespace cop3530 {
 				temp = head;
 			}
 			head = new Node;
+			tail = head;
+			amount = 0;
+			nodeAmount = 1;
+
 		}
 
 		bool contains(const T& element,

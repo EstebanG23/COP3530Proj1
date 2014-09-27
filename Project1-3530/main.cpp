@@ -43,25 +43,33 @@ int main(){
 	}
 	*/
 	
-	cop3530::SDAL<char> list2;
+	cop3530::CDAL<int> list2;
 
-	list2.push_back('1');
-	list2.push_back('2');
-	list2.push_back('3');
-	list2.push_back('4');
-	
-	
-	for (cop3530::SDAL<char>::iterator iter = list2.begin(); iter != list2.end(); ++iter){
-		std::cout << *iter << std::endl;
-		*iter = *iter - 1;
+	for (int i = 0; i < 201; ++i){
+		//std::cout << (char)i << std::endl;
+		list2.push_back(i);
 	}
 
-
-	for (cop3530::SDAL<char>::iterator iter = list2.begin(); iter != list2.end(); ++iter){
-		std::cout << *iter << std::endl;
-		*iter = *iter - 1;
+	list2.push_back(10000);
+	cop3530::CDAL<int>::iterator end = list2.end();
+	for (cop3530::CDAL<int>::iterator iter = list2.begin(); iter != end; ++iter){
+		//std::cout << *iter << std::endl;
 	}
+	
+	std::cout << std::endl << std::endl;
 
+	const cop3530::CDAL<int> const_list = list2;
+	
+	for (int i = 0; i < 202; ++i){
+		std::cout << const_list.item_at(i) << std::endl;
+	}
+	
+	
+	cop3530::CDAL<int>::const_iterator const_end = const_list.end();
+	for (cop3530::CDAL<int>::const_iterator const_iter = const_list.begin(); const_iter != const_end; ++const_iter){
+		std::cout << *const_iter << std::endl;
+	}
+	
 
 	return 0;
 
