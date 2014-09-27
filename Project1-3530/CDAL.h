@@ -232,7 +232,7 @@ namespace cop3530 {
 		//done
 
 		//checks for size
-		int size() const { return amount; }
+		size_t size() const { return amount; }
 		//done
 
 		//clears list

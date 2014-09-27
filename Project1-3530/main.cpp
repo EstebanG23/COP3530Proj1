@@ -10,7 +10,8 @@ using namespace cop3530;
 int main(){
 	
 	CDAL<int> CD = CDAL<int>();
-
+	
+	std::cout << CD.size();
 
 	return 0;
 
