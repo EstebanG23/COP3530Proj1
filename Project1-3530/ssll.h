@@ -1,6 +1,6 @@
 #ifndef _SSLL_H_
 #define _SSLL_H_
-#include <cstddef>
+
 
 
 /*
@@ -49,18 +49,93 @@ namespace cop3530 {
 			explicit SSLL_Iter(Node* start = NULL) : here(start) {}
 			SSLL_Iter(const SSLL_Iter& src) : here(src.here) {}
 
-			reference operator*() const {}
-			pointer operator->() const {}
+			reference operator*() const { return here->data; }
+			pointer operator->() const { return here; }
+			self_reference operator=(const SSLL_Iter& src) {
+				delete this;
+				*this = src;
+			}//done
 
-			self_reference operator=(const SSLL_Iter& src) {}
+			self_reference operator++() {
+				here = here->next;
+				return *this;
+			} // preincrement
+			self_type operator++(int) {
+				SSLL_iter temp(*this);
+				here = here->next;
+				return here;
+			} // postincrement
 
-			self_reference operator++() {} // preincrement
-			self_type operator++(int) {} // postincrement
-
-			bool operator==(const SSLL_Iter& rhs) const {}
-			bool operator!=(const SSLL_Iter& rhs) const {}
+			bool operator==(const SSLL_Iter& rhs) const {
+				if (here == rhs.here){
+					return true;
+				}
+				return false;
+			}//done
+			bool operator!=(const SSLL_Iter& rhs) const {
+				if (here != rhs.here){
+					return true;
+				}
+				return false;
+			}
 		}; // end SSLL_Iter 
 
+
+	public:
+		class SSLL_Const_Iter //: public std::iterator<std::forward_iterator_tag, T>
+		{
+		public:
+			// inheriting from std::iterator<std::forward_iterator_tag, T>
+			// automagically sets up these typedefs...
+			typedef T value_type;
+			typedef std::ptrdiff_t difference_type;
+			typedef const T& reference;
+			typedef const T* pointer;
+			typedef std::forward_iterator_tag iterator_category;
+
+			// but not these typedefs...
+			typedef SSLL_Const_Iter self_type;
+			typedef SSLL_Const_Iter& self_reference;
+
+		private:
+			const Node* here;
+
+		public:
+			explicit SSLL_Const_Iter(Node* start = NULL) : here(start) {}
+			SSLL_Const_Iter(const SSLL_Const_Iter& src) : here(src.here) {}
+
+			reference operator*() const { return here->data; }//done
+			pointer operator->() const { return here; }//done
+
+			self_reference operator=(const SSLL_Const_Iter& src) {
+				delete this;
+				*this = src;
+			}//done
+
+			self_reference operator++() {
+				here = here->next;
+				return * this;
+			} // preincrement//done
+			self_type operator++(int) {
+				SSLL_iter temp(*this);
+				here = here->next;
+				return here;
+			} // postincrement//done
+
+			bool operator==(const SSLL_Const_Iter& rhs) const {
+				if (here == rhs.here){
+					return true;
+				}
+				return false;
+			}//done
+	
+			bool operator!=(const SSLL_Const_Iter& rhs) const {
+				if (here != rhs.here){
+					return true;
+				}
+				return false;
+			}
+		}; // end SSLL_Iter 
 
 		//--------------------------------------------------
 		// types
@@ -68,7 +143,7 @@ namespace cop3530 {
 		typedef std::size_t size_t;
 		typedef T value_type;
 		typedef SSLL_Iter iterator;
-		//typedef SSLL_Const_Iter const_iterator;
+		typedef SSLL_Const_Iter const_iterator;
 
 		//--------------------------------------------------
 		// Constructors/destructor/assignment operator
@@ -81,7 +156,9 @@ namespace cop3530 {
 		}
 
 		//--------------------------------------------------
-		SSLL(const SSLL& src) :this(src){}
+		SSLL(const SSLL& src){
+			*this = src;
+		}
 
 		//--------------------------------------------------
 		~SSLL() {
@@ -98,15 +175,28 @@ namespace cop3530 {
 			// safely dispose of this SSLL's contents
 			// populate this SSLL with copies of the other SSLL's contents
 			clear();
-			for (int i = 0; i < src.size(); i++){
+			for (int i = 0; i < (int)src.size(); i++){
 				push_back(src.item_at(i));
 			}
+			return *this;
 		}
 
 
 		//Replaces orginal element with specified element, returns orginal
 		T replace(const T& element, int position) {
+			Node * temp = head;
+			T data;
+			for (int i = 0; i <= position; ++i){
+				if (i == position){
+					data = temp->data;
+					temp->data = element;
+				}
+				else{
+					temp = temp->next;
+				}
 
+			}
+			return data;
 		}
 		//#done
 
@@ -144,7 +234,7 @@ namespace cop3530 {
 
 
 		void push_back(const T& element) {
-			insert(element, tail)
+			insert(element, amount);
 		}
 
 
@@ -274,8 +364,14 @@ namespace cop3530 {
 
 		}
 
+		//////////////////////////ITERATOR MEMEBERS/////////////////////////////////////
 
 
+		iterator begin() { return SSLL_Iter(head); }
+		iterator end() { return SSLL_Iter(tail->next); }
+
+		const_iterator begin() const { return SSLL_Const_Iter(head); }
+		const_iterator end() const { return SSLL_Const_Iter(tail->next); }
 	};
 }//end namepace
 #endif

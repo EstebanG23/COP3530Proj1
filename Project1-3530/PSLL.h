@@ -1,6 +1,7 @@
 #ifndef _PSLL_H_
 #define _PSLL_H_
 
+
 /*
 Skeleton created by Dave Small
 
@@ -24,11 +25,128 @@ namespace cop3530 {
 		Node * poolHead;
 		Node * poolTail;
 		int amount;
-		int poolAmount;
+		size_t poolAmount;
 
 
 
 	public:
+		class PSLL_Iter //: public std::iterator<std::forward_iterator_tag, T>
+		{
+		public:
+			// inheriting from std::iterator<std::forward_iterator_tag, T>
+			// automagically sets up these typedefs...
+			typedef T value_type;
+			typedef std::ptrdiff_t difference_type;
+			typedef T& reference;
+			typedef T* pointer;
+			typedef std::forward_iterator_tag iterator_category;
+
+			// but not these typedefs...
+			typedef PSLL_Iter self_type;
+			typedef PSLL_Iter& self_reference;
+
+		private:
+			Node* here;
+
+		public:
+			explicit PSLL_Iter(Node* start = NULL) : here(start) {}
+			PSLL_Iter(const PSLL_Iter& src) : here(src.here) {}
+
+			reference operator*() const { return here->data; }
+			pointer operator->() const { return here; }
+			self_reference operator=(const PSLL_Iter& src) {
+				delete this;
+				*this = src;
+			}//done
+
+			self_reference operator++() {
+				here = here->next;
+				return *this;
+			} // preincrement
+			self_type operator++(int) {
+				PSLL_iter temp(*this);
+				here = here->next;
+				return here;
+			} // postincrement
+
+			bool operator==(const PSLL_Iter& rhs) const {
+				if (here == rhs.here){
+					return true;
+				}
+				return false;
+			}//done
+			bool operator!=(const PSLL_Iter& rhs) const {
+				if (here != rhs.here){
+					return true;
+				}
+				return false;
+			}
+		}; // end PSLL_Iter 
+
+
+	public:
+		class PSLL_Const_Iter //: public std::iterator<std::forward_iterator_tag, T>
+		{
+		public:
+			// inheriting from std::iterator<std::forward_iterator_tag, T>
+			// automagically sets up these typedefs...
+			typedef T value_type;
+			typedef std::ptrdiff_t difference_type;
+			typedef const T& reference;
+			typedef const T* pointer;
+			typedef std::forward_iterator_tag iterator_category;
+
+			// but not these typedefs...
+			typedef PSLL_Const_Iter self_type;
+			typedef PSLL_Const_Iter& self_reference;
+
+		private:
+			const Node* here;
+
+		public:
+			explicit PSLL_Const_Iter(Node* start = NULL) : here(start) {}
+			PSLL_Const_Iter(const PSLL_Const_Iter& src) : here(src.here) {}
+
+			reference operator*() const { return here->data; }//done
+			pointer operator->() const { return here; }//done
+
+			self_reference operator=(const PSLL_Const_Iter& src) {
+				delete this;
+				*this = src;
+			}//done
+
+			self_reference operator++() {
+				here = here->next;
+				return *this;
+			} // preincrement//done
+			self_type operator++(int) {
+				SSLL_iter temp(*this);
+				here = here->next;
+				return here;
+			} // postincrement//done
+
+			bool operator==(const PSLL_Const_Iter& rhs) const {
+				if (here == rhs.here){
+					return true;
+				}
+				return false;
+			}//done
+
+			bool operator!=(const PSLL_Const_Iter& rhs) const {
+				if (here != rhs.here){
+					return true;
+				}
+				return false;
+			}
+		}; // end PSLL_Iter 
+
+		//--------------------------------------------------
+		// types
+		//--------------------------------------------------
+		typedef std::size_t size_t;
+		typedef T value_type;
+		typedef PSLL_Iter iterator;
+		typedef PSLL_Const_Iter const_iterator;
 
 		//--------------------------------------------------
 		// Constructors/destructor/assignment operator
@@ -285,12 +403,6 @@ namespace cop3530 {
 			return out;
 
 		}
-
-
-		/*
-		Node * poolHead;
-		Node * poolTail;
-		*/
 
 	private:
 		//pushes all emptied, unused nodes to the back

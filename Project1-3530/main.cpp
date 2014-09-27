@@ -8,10 +8,31 @@
 using namespace cop3530;
 
 int main(){
+
+	/*
+	cop3530::SSLL<char> list;
+
+
+	list.push_front('y');
+	list.push_back('X');
 	
-	CDAL<int> CD = CDAL<int>();
+
+	const cop3530::SSLL<char> const_list = list;
+
+	cop3530::SSLL<char>::iterator iter = list.begin();
+	std::cout << *iter << std::endl;        // prints an X
+	++iter;
+	std::cout << *iter << std::endl;        // prints a Y
+
 	
-	std::cout << CD.size();
+
+	for (cop3530::SSLL<char>::const_iterator const_iter = const_list.begin(); const_iter != const_list.end(); ++const_iter){
+		std::cout << *const_iter << std::endl;
+	}
+
+	*/
+
+
 
 	return 0;
 
