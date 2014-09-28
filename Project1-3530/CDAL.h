@@ -1,5 +1,8 @@
 #ifndef _CDAL_H_
 #define _CDAL_H_
+#include <cstddef>
+#include <exception>
+#include <new> 
 
 /*
 Skeleton created by Dave Small
@@ -479,4 +482,4 @@ namespace cop3530 {
 
 	};
 }
-#endif;
+#endif

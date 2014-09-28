@@ -1,5 +1,6 @@
 #ifndef _SDAL_H_
 #define _SDAL_H_
+#include <cstddef>
 #include <exception>
 #include <new> 
 /*

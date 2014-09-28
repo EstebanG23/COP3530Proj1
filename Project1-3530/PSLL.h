@@ -1,6 +1,8 @@
 #ifndef _PSLL_H_
 #define _PSLL_H_
-
+#include <cstddef>
+#include <exception>
+#include <new> 
 
 /*
 Skeleton created by Dave Small
