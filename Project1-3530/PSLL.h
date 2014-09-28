@@ -452,8 +452,15 @@ namespace cop3530 {
 				return temp;
 			}
 			else{
-				Node * temp = new Node;
-				return temp;
+				try{
+					Node * temp = new Node;
+					return temp;
+				}
+				catch (std::bad_alloc)
+				{
+					std::cerr << "Memory Allocation Failed " << std::endl;
+				}
+				
 			}
 
 		}
