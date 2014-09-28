@@ -162,7 +162,7 @@ namespace cop3530 {
 
 		SSLL() {
 			amount = 0;
-			tail = new Node();
+			tail = get_new_Node();
 			head = tail;
 		}
 
@@ -195,6 +195,10 @@ namespace cop3530 {
 
 		//Replaces orginal element with specified element, returns orginal
 		T replace(const T& element, int position) {
+			if (position < 0 || position > amount - 1 ){
+				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
+				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+			}
 			Node * temp = head;
 			T data;
 			for (int i = 0; i <= position; ++i){
@@ -213,8 +217,12 @@ namespace cop3530 {
 
 		//inserts elemenet, and shifts all elements after to the "left"
 		void insert(const T& element, int position) {
+			if (position < 0 || position > amount){
+				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
+				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+			}
 			Node * next = head;
-			Node * temp = new Node;
+			Node * temp = get_new_Node();
 			temp->data = element;
 
 			if (amount == 0){
@@ -262,6 +270,10 @@ namespace cop3530 {
 
 		//Removes an element from the list, from specified location
 		T remove(int position) {
+			if (position < 0 || position > amount){
+				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
+				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+			}
 			Node * next = head;
 			Node * prev = head;
 			T data;
@@ -301,6 +313,10 @@ namespace cop3530 {
 
 		//Looks at item at position
 		T item_at(int position) const {
+			if (position < 0 || position > amount ){
+				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
+				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+			}
 			Node * select = head;
 			T data;
 			for (int i = 0; i < position; i++){
@@ -329,7 +345,7 @@ namespace cop3530 {
 				temp = temp->next;
 				delete tail;
 			}
-			head = new Node;
+			head = get_new_Node();
 			tail = head;
 			amount = 0;
 
@@ -373,6 +389,17 @@ namespace cop3530 {
 
 			return out;
 
+		}
+
+		Node* get_new_Node(){
+			try{
+				return new Node;
+			}
+			catch (std::bad_alloc)
+			{
+				std::cerr << "Memory Allocation Failed " << std::endl;
+			}
+			return 0;
 		}
 
 	};
