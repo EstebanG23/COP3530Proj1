@@ -26,8 +26,8 @@ namespace cop3530 {
 		Node * tail;
 		Node * poolHead;
 		Node * poolTail;
-		int amount;
-		size_t poolAmount;
+		std::size_t amount;
+		std::size_t poolAmount;
 
 
 
@@ -360,12 +360,12 @@ namespace cop3530 {
 		//#done
 
 		//checks for size
-		size_t size() const { return amount; }
+		std::size_t size() const { return amount; }
 		//#done
 		//clears list
 		void clear() {
 			Node * temp = head;
-			for (int i = 0; i < amount; i++){
+			for (int i = 0; i < (int)amount; i++){
 				tail = temp;
 				temp = temp->next;
 				delete tail;

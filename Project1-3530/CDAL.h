@@ -26,7 +26,7 @@ namespace cop3530 {
 		};
 		Node * head;
 		Node * tail;
-		int amount;
+		std::size_t amount;
 		int nodeAmount;
 
 	public:

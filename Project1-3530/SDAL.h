@@ -21,7 +21,7 @@ namespace cop3530 {
 		T * list;
 		int tail;
 		//amount of items
-		int amount;
+		std::size_t amount;
 		//total size
 		int length;
 
@@ -211,7 +211,7 @@ namespace cop3530 {
 		//inserts elemenet, and shifts all elements after to the "left"
 		void insert(const T& element, int position) {
 			if (amount == length){ grow_list(); }
-			if (position < 0 || position > amount + 1){
+			if (position < 0 || position > (int)amount + 1){
 				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
 				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
 			}
@@ -317,7 +317,7 @@ namespace cop3530 {
 
 			T * temp = get_new_T(length);
 			
-			for (int i = 0; i < amount; ++i){
+			for (int i = 0; i < (int)amount; ++i){
 				temp[i] = list[i];
 			}
 			delete[] list;

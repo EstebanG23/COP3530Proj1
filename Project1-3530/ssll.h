@@ -26,7 +26,7 @@ namespace cop3530 {
 		}; // end struct Node
 		Node *head;
 		Node *tail;
-		size_t amount;
+		std::size_t amount;
 
 
 	public:
@@ -198,7 +198,7 @@ namespace cop3530 {
 
 		//Replaces orginal element with specified element, returns orginal
 		T replace(const T& element, int position) {
-			if (position < 0 || position > amount - 1 ){
+			if (position < 0 || position > (int)amount - 1 ){
 				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
 				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
 			}
@@ -337,7 +337,7 @@ namespace cop3530 {
 		//#done
 
 		//checks for size
-		size_t size() const { return amount; }
+		std::size_t size() const { return amount; }
 		//#done
 
 		//clears list
