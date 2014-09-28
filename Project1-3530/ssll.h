@@ -13,7 +13,7 @@ Methods and Logic Written by Joshua Kegley
 */ 
 
 #include <iostream>
-
+ 
 namespace cop3530 {
 
 	template <typename T>
