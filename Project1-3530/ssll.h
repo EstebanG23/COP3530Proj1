@@ -1,8 +1,10 @@
 #ifndef _SSLL_H_
 #define _SSLL_H_
 #include <cstddef>
+#include <cstdlib>
+#include <stdexcept>
 #include <exception>
-#include <new> 
+
 
 /*
 Skeleton created by Dave Small
@@ -62,7 +64,7 @@ namespace cop3530 {
 				return *this;
 			} // preincrement
 			self_type operator++(int) {
-				SSLL_iter temp(*this);
+				SSLL_Iter temp(*this);
 				here = here->next;
 				return here;
 			} // postincrement
@@ -118,7 +120,7 @@ namespace cop3530 {
 				return * this;
 			} // preincrement//done
 			self_type operator++(int) {
-				SSLL_iter temp(*this);
+				SSLL_Const_Iter temp(*this);
 				here = here->next;
 				return here;
 			} // postincrement//done
@@ -218,7 +220,7 @@ namespace cop3530 {
 
 		//inserts elemenet, and shifts all elements after to the "left"
 		void insert(const T& element, int position) {
-			if (position < 0 || position > (int)amount){
+			if (position < 0 || position >(int)amount){
 				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
 				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
 			}

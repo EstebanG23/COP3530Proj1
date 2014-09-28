@@ -1,9 +1,9 @@
 #ifndef _PSLL_H_
 #define _PSLL_H_
 #include <cstddef>
+#include <cstdlib>
+#include <stdexcept>
 #include <exception>
-#include <new> 
-
 /*
 Skeleton created by Dave Small
 
@@ -66,7 +66,7 @@ namespace cop3530 {
 				return *this;
 			} // preincrement
 			self_type operator++(int) {
-				PSLL_iter temp(*this);
+				PSLL_Iter temp(*this);
 				here = here->next;
 				return here;
 			} // postincrement
@@ -122,7 +122,7 @@ namespace cop3530 {
 				return *this;
 			} // preincrement//done
 			self_type operator++(int) {
-				SSLL_iter temp(*this);
+				PSLL_Const_Iter temp(*this);
 				here = here->next;
 				return here;
 			} // postincrement//done

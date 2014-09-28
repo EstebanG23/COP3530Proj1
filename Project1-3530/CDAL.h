@@ -1,8 +1,9 @@
 #ifndef _CDAL_H_
 #define _CDAL_H_
 #include <cstddef>
+#include <cstdlib>
+#include <stdexcept>
 #include <exception>
-#include <new> 
 
 /*
 Skeleton created by Dave Small
@@ -20,7 +21,8 @@ namespace cop3530 {
 		struct Node{
 			T data[50];
 			Node * next = NULL;
-			int arrayTail = 0;
+			int arrayTail;
+			Node() :arrayTail(0){}
 		};
 		Node * head;
 		Node * tail;
@@ -46,11 +48,11 @@ namespace cop3530 {
 		private:
 			Node * node;
 			T * here;
-			int i = 0;
+			int i;
 
 		public:
-			explicit CDAL_Iter(Node * head = NULL, T * start = NULL) : here(start), node(head) {}
-			CDAL_Iter(const CDAL_Iter& src) : here(src.here), node(src.node) {}
+			explicit CDAL_Iter(Node * head = NULL, T * start = NULL) : here(start), node(head), i(0) {}
+			CDAL_Iter(const CDAL_Iter& src) : here(src.here), node(src.node), i(0) {}
 
 			reference operator*() const { return *here; }
 			pointer operator->() const { return here; }
@@ -119,11 +121,11 @@ namespace cop3530 {
 		private:
 			const Node * node;
 			const T * here;
-			int i = 0;
+			int i;
 
 		public:
-			explicit CDAL_Const_Iter(Node * head = NULL, T * start = NULL) : here(start), node(head) {}
-			CDAL_Const_Iter(const CDAL_Const_Iter& src) : here(src.here), node(src.node) {}
+			explicit CDAL_Const_Iter(Node * head = NULL, T * start = NULL) : here(start), node(head), i(0){}
+			CDAL_Const_Iter(const CDAL_Const_Iter& src) : here(src.here), node(src.node), i(0) {}
 
 			reference operator*() const { return *here; }//done
 			pointer operator->() const { return here; }//done

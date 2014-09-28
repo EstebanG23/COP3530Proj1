@@ -1,8 +1,9 @@
 #ifndef _SDAL_H_
 #define _SDAL_H_
 #include <cstddef>
+#include <cstdlib>
+#include <stdexcept>
 #include <exception>
-#include <new> 
 /*
 Skeleton created by Dave Small
 
@@ -18,7 +19,7 @@ namespace cop3530 {
 	class SDAL {
 	private:
 		T * list;
-		int tail = 0;
+		int tail;
 		//amount of items
 		int amount;
 		//total size
@@ -59,7 +60,7 @@ namespace cop3530 {
 				return *this;
 			} // preincrement
 			self_type operator++(int) {
-				SDAL_iter temp(*this);
+				SDAL_Iter temp(*this);
 				here = ++here;
 				return here;
 			} // postincrement
@@ -96,7 +97,7 @@ namespace cop3530 {
 			typedef SDAL_Const_Iter& self_reference;
 
 		private:
-			const int here;
+			T * here;
 
 		public:
 			explicit SDAL_Const_Iter(T * start = NULL) : here(start) {}
@@ -115,8 +116,8 @@ namespace cop3530 {
 				return *this;
 			} // preincrement//done
 			self_type operator++(int) {
-				SSLL_iter temp(*this);
-				here = here->next;
+				SDAL_Const_Iter temp(*this);
+				here = &here->next;
 				return here;
 			} // postincrement//done
 
@@ -149,26 +150,28 @@ namespace cop3530 {
 		//--------------------------------------------------
 
 		iterator begin() { return SDAL_Iter(&list[0]); }
-		iterator end() { return SDAL_Iter(&list[length]); }
+		iterator end() { return SDAL_Iter(&list[amount]); }
 
-		const_iterator begin() const { return SDAL_Const_Iter(0); }
-		const_iterator end() const { return SDAL_Const_Iter(&list[length]); }
+		const_iterator begin() const { return SDAL_Const_Iter(&list[0]); }
+		const_iterator end() const { return SDAL_Const_Iter(&list[amount]); }
 
 
 		SDAL() {
 			length = 50;
 			list = get_new_T(length);
 			amount = 0;
+			tail = 0;
 		}
 
 		SDAL(int size) {
 			length = size;
 			list = get_new_T(length);
 			amount = 0;
+			tail = 0;
 		}
 
-		SDAL(const SDAL& src) :this(src){}
-
+		SDAL(const SDAL& src){ *this = src; }
+		
 		~SDAL() {
 
 		}
@@ -289,7 +292,7 @@ namespace cop3530 {
 		bool contains(const T& element,
 			bool equals(const T& a, const T& b)) const {
 			for (int i = 0; i < amount; ++i){
-				if (list[i] == elemnt){ return true; }
+				if (list[i] == element){ return true; }
 			}
 		}
 
