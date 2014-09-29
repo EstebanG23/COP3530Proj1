@@ -222,6 +222,33 @@ namespace cop3530 {
 			return *this;
 		}
 
+		T& operator[](int position){
+			if (position < 0 || position >(int)amount){
+				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
+				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+			}
+			int nodePosition = position / 50;
+			int arrayPosition = position % 50;
+			Node * temp = head;
+			for (int i = 0; i < nodePosition; ++i){
+				temp = temp->next;
+			}
+			return temp->data[arrayPosition];
+		}
+
+		T const& operator[](int position) const{
+			if (position < 0 || position >(int)amount){
+				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
+				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+			}
+						int nodePosition = position / 50;
+			int arrayPosition = position % 50;
+			Node * temp = head;
+			for (int i = 0; i < nodePosition; ++i){
+				temp = temp->next;
+			}
+			return temp->data[arrayPosition];
+		}
 
 		//Replaces orginal element with specified element, returns orginal
 		T replace(const T& element, int position) {
@@ -431,19 +458,13 @@ namespace cop3530 {
 
 		std::ostream& print(std::ostream& out) const {
 			Node * temp = head;
-			std::cout << std::endl << std::endl;
-			std::cout << "Nodes: " << nodeAmount << std::endl;
-			std::cout << "Amount: " << amount << std::endl;
-			std::cout << "Max Size: " << nodeAmount * 50 << std::endl;
-			std::cout << "head: " << head << std::endl;
-			std::cout << "tail: " << tail << std::endl;
-			out << "0[";
-			for (int i = 0; i < amount; ++i){
+			out << "[";
+			for (int i = 0; i < (int)amount; ++i){
 				if (i != 0 && i % 50 == 0){
 					out << "]" << std::endl << std::endl << i / 50 << "Node: " << temp << "[";
 					temp = temp->next;
 				}
-				out << temp->data[i % 50] << " ";
+				out << temp->data[i % 50] << ",";
 			}
 			out << "]";
 			return out;
@@ -462,11 +483,8 @@ namespace cop3530 {
 		}
 
 		void shrink(){
-			std::cout << "SHRINKING" << std::endl;
 			Node * temp = get_node(nodeAmount);
 			for (int i = nodeAmount - 1; i > ((nodeAmount / 2) + 1); --i){
-				std::cout << "Temp: ";
-				std::cout << temp << std::endl;
 				delete temp;
 
 				temp = get_node(--nodeAmount);

@@ -13,21 +13,16 @@ int main(){
 	cop3530::PSLL<int> PS;
 	cop3530::SDAL<int> SD;
 
-	SS.push_back(10000);
+	SS.push_back(10000); SS.push_back(10000); SS.push_back(10000); SS.push_back(10000);
 	PS.push_back(10000);
 	SD.push_back(10000); SD.push_back(10000); SD.push_back(10000); SD.push_back(10000);
 	CD.push_back(10000);
 
 	const cop3530::SDAL<int> SDC;
 
+	CD[0] = 50;
 
-
-	cop3530::SDAL<int>::iterator end = SD.end();
-
-	for (cop3530::SDAL<int>::iterator begin = SD.begin(); begin != end; ++begin){
-		*begin = *begin + 1;
-		std::cout << *begin << std::endl;
-	}
+	CD.print(std::cout);
 
 	//SDC = SD;
 

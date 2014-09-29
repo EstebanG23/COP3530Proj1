@@ -196,6 +196,21 @@ namespace cop3530 {
 
 		}
 
+		T& operator[](int position){
+			if (position < 0 || position > (int)amount){
+				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
+				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+			}
+			return list[position];
+		}
+
+		T const& operator[](int position) const{
+			if (position < 0 || position >(int)amount){
+				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
+				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+			}
+			return list[position];
+		}
 
 		//Replaces orginal element with specified element, returns orginal
 		T replace(const T& element, int position) {
@@ -291,13 +306,13 @@ namespace cop3530 {
 
 		bool contains(const T& element,
 			bool equals(const T& a, const T& b)) const {
-			for (int i = 0; i < amount; ++i){
+			for (int i = 0; i < (int)amount; ++i){
 				if (list[i] == element){ return true; }
 			}
 		}
 
 		std::ostream& print(std::ostream& out) const {
-			for (int i = 0; i < amount; ++i){
+			for (int i = 0; i < (int)amount; ++i){
 				if (i == 0){
 					out << "[" << list[i] << ",";
 				}

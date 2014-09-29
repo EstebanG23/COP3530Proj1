@@ -194,6 +194,33 @@ namespace cop3530 {
 			}
 			return *this;
 		}
+		
+		T& operator[](int position){
+			if (position < 0 || position > (int)amount){
+				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
+				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+			}
+			Node * select = head;
+			for (int i = 0; i < position; i++){
+				select = select->next;
+			}
+			T& data = select->data;
+			return data;
+		}
+
+		T const& operator[](int position) const{
+			if (position < 0 || position > amount){
+				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
+				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+			}
+			Node * select = head;
+			for (int i = 0; i < position; i++){
+				select = select->next;
+			}
+			const T& data = select->data;
+			return data;
+		}
+
 
 
 		//Replaces orginal element with specified element, returns orginal
@@ -375,7 +402,7 @@ namespace cop3530 {
 			}
 			else{
 				out << "[";
-				for (int i = 0; i < amount; i++){
+				for (int i = 0; i < (int)amount; i++){
 					if (i == amount - 1){
 						out << temp->data;
 
