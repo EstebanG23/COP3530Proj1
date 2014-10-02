@@ -30,6 +30,9 @@ namespace cop3530 {
 
 
 	public:
+		//-------------------------------------------------------------------------
+		//  Non Const Iterator
+		//-------------------------------------------------------------------------
 		class SSLL_Iter //: public std::iterator<std::forward_iterator_tag, T>
 		{
 		public:
@@ -57,7 +60,7 @@ namespace cop3530 {
 			self_reference operator=(const SSLL_Iter& src) {
 				delete this;
 				*this = src;
-			}//done
+			}
 
 			self_reference operator++() {
 				here = here->next;
@@ -74,7 +77,7 @@ namespace cop3530 {
 					return true;
 				}
 				return false;
-			}//done
+			}
 			bool operator!=(const SSLL_Iter& rhs) const {
 				if (here != rhs.here){
 					return true;
@@ -83,6 +86,9 @@ namespace cop3530 {
 			}
 		}; // end SSLL_Iter 
 
+	//-------------------------------------------------------------------------
+	//  Const Iterator
+	//-------------------------------------------------------------------------
 
 	public:
 		class SSLL_Const_Iter //: public std::iterator<std::forward_iterator_tag, T>
@@ -107,30 +113,30 @@ namespace cop3530 {
 			explicit SSLL_Const_Iter(Node* start = NULL) : here(start) {}
 			SSLL_Const_Iter(const SSLL_Const_Iter& src) : here(src.here) {}
 
-			reference operator*() const { return here->data; }//done
-			pointer operator->() const { return here; }//done
+			reference operator*() const { return here->data; }
+			pointer operator->() const { return here; }
 
 			self_reference operator=(const SSLL_Const_Iter& src) {
 				delete this;
 				*this = src;
-			}//done
+			}
 
 			self_reference operator++() {
 				here = here->next;
 				return * this;
-			} // preincrement//done
+			} // preincrement
 			self_type operator++(int) {
 				SSLL_Const_Iter temp(*this);
 				here = here->next;
 				return here;
-			} // postincrement//done
+			} // postincrement
 
 			bool operator==(const SSLL_Const_Iter& rhs) const {
 				if (here == rhs.here){
 					return true;
 				}
 				return false;
-			}//done
+			}
 	
 			bool operator!=(const SSLL_Const_Iter& rhs) const {
 				if (here != rhs.here){
@@ -194,11 +200,16 @@ namespace cop3530 {
 			}
 			return *this;
 		}
-		
+
+		//-------------------------------------------------------------------------
+		//  []
+		//
+		//	returns a non const reference to a specified position
+		//-------------------------------------------------------------------------
 		T& operator[](int position){
 			if (position < 0 || position > (int)amount){
-				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
-				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+				if (position < 0){ throw std::invalid_argument("Domain Incorrect: does not take negative integers."); }
+				else{ throw std::invalid_argument("Domain Incorrect: Position does not exist."); }
 			}
 			Node * select = head;
 			for (int i = 0; i < position; i++){
@@ -208,10 +219,15 @@ namespace cop3530 {
 			return data;
 		}
 
+		//-------------------------------------------------------------------------
+		//  []
+		//
+		//	returns a const reference to a specified position
+		//-------------------------------------------------------------------------
 		T const& operator[](int position) const{
 			if (position < 0 || position > amount){
-				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
-				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+				if (position < 0){ throw std::invalid_argument("Domain Incorrect: does not take negative integers."); }
+				else{ throw std::invalid_argument("Domain Incorrect: Position does not exist."); }
 			}
 			Node * select = head;
 			for (int i = 0; i < position; i++){
@@ -221,13 +237,16 @@ namespace cop3530 {
 			return data;
 		}
 
-
-
-		//Replaces orginal element with specified element, returns orginal
+		//-------------------------------------------------------------------------
+		//  Replace
+		//
+		//	replaces an element with a specified element at a specified position
+		//	returning the original element
+		//-------------------------------------------------------------------------
 		T replace(const T& element, int position) {
 			if (position < 0 || position > (int)amount - 1 ){
-				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
-				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+				if (position < 0){ throw std::invalid_argument("Domain Incorrect: does not take negative integers."); }
+				else{ throw std::invalid_argument("Domain Incorrect: Position does not exist."); }
 			}
 			Node * temp = head;
 			T data;
@@ -243,13 +262,17 @@ namespace cop3530 {
 			}
 			return data;
 		}
-		//#done
 
-		//inserts elemenet, and shifts all elements after to the "left"
+
+		//-------------------------------------------------------------------------
+		//  Insert
+		//
+		//	inserts an element to desired position
+		//-------------------------------------------------------------------------
 		void insert(const T& element, int position) {
 			if (position < 0 || position >(int)amount){
-				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
-				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+				if (position < 0){ throw std::invalid_argument("Domain Incorrect: does not take negative integers."); }
+				else{ throw std::invalid_argument("Domain Incorrect: Position does not exist."); }
 			}
 			Node * next = head;
 			Node * temp = get_new_Node();
@@ -276,33 +299,52 @@ namespace cop3530 {
 			++amount;
 		}
 
-
+		//-------------------------------------------------------------------------
+		//  Push back
+		//
+		//	adds an element to the front, using insert
+		//-------------------------------------------------------------------------
 		void push_front(const T& element) {
 			insert(element, 0);
 		}
 
-
+		//-------------------------------------------------------------------------
+		//  Push back
+		//
+		//	adds an element to the back, using insert
+		//-------------------------------------------------------------------------
 		void push_back(const T& element) {
 			insert(element, amount);
 		}
 
-
+		//-------------------------------------------------------------------------
+		//  Pop Front
+		//
+		//	removes an element from the from, using remove()
+		//-------------------------------------------------------------------------
 		T pop_front() {
 			return remove(0);
 		}
 
-
+		//-------------------------------------------------------------------------
+		//	Pop Back
+		//
+		//	removes an element from the end, using remove()
+		//-------------------------------------------------------------------------
 		T pop_back() {
 			return remove(amount - 1);
 		}
 
 
-
-		//Removes an element from the list, from specified location
+		//-------------------------------------------------------------------------
+		//	Remove
+		//
+		//	Removes an element from the list, from specified location
+		//-------------------------------------------------------------------------
 		T remove(int position) {
-			if (position < 0 || position > amount){
-				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
-				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+			if (position < 0 || position > (int)amount){
+				if (position < 0){ throw std::invalid_argument("Argument Incorrect: does not take negative integers."); }
+				else{ throw std::invalid_argument("Argument Incorrect: Position does not exist."); }
 			}
 			Node * next = head;
 			Node * prev = head;
@@ -339,13 +381,16 @@ namespace cop3530 {
 			--amount;
 			return data;
 		}
-		//#done
 
-		//Looks at item at position
+		//-------------------------------------------------------------------------
+		//	Item At
+		//
+		//	find the element held at position
+		//-------------------------------------------------------------------------
 		T item_at(int position) const {
 			if (position < 0 || position > amount ){
-				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
-				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+				if (position < 0){ throw std::invalid_argument("Argument Incorrect: does not take negative integers."); }
+				else{ throw std::invalid_argument("Argument Incorrect: Position does not exist."); }
 			}
 			Node * select = head;
 			T data;
@@ -357,17 +402,29 @@ namespace cop3530 {
 		}
 		//#done
 
-		//Checks for emptiness
+		//-------------------------------------------------------------------------
+		//  Is Empty
+		//
+		//	Checks to see if the structure is empty
+		//-------------------------------------------------------------------------
 		bool is_empty() const {
 			return (amount == 0 ? true : false);
 		}
-		//#done
 
+		//-------------------------------------------------------------------------
+		//  Size
+		//
+		//	returns size of type size_t
+		//-------------------------------------------------------------------------
 		//checks for size
 		std::size_t size() const { return amount; }
 		//#done
 
-		//clears list
+		//-------------------------------------------------------------------------
+		//  Clear
+		//
+		//	Clears the structure and then creates a new head node
+		//-------------------------------------------------------------------------
 		void clear() {
 			Node * temp = head;
 			for (int i = 0; i < (int)amount; i++){
@@ -380,8 +437,13 @@ namespace cop3530 {
 			amount = 0;
 
 		}
-		//done
 
+
+		//-------------------------------------------------------------------------
+		//  Contains
+		//
+		//	does the structure have an element that matches the element provided
+		//-------------------------------------------------------------------------
 		bool contains(const T& element,
 			bool equals(const T& a, const T& b)) const {
 
@@ -395,6 +457,9 @@ namespace cop3530 {
 			return false;
 		}
 
+		//-------------------------------------------------------------------------
+		//  ostream print method
+		//-------------------------------------------------------------------------
 		std::ostream& print(std::ostream& out) const {
 			Node * temp = head;
 			if (this->is_empty()){
@@ -420,6 +485,14 @@ namespace cop3530 {
 			return out;
 
 		}
+
+
+	private:
+		//-------------------------------------------------------------------------
+		//  Return new node
+		//
+		//	Tries to allocate a new node, if it can it returns the node.
+		//-------------------------------------------------------------------------
 
 		Node* get_new_Node(){
 			try{

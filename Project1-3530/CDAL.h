@@ -59,7 +59,7 @@ namespace cop3530 {
 			self_reference operator=(const CDAL_Iter& src) {
 				delete this;
 				*this = src;
-			}//done
+			}
 
 			self_reference operator++() {
 				++i;
@@ -92,7 +92,7 @@ namespace cop3530 {
 					return true;
 				}
 				return false;
-			}//done
+			}
 			bool operator!=(const CDAL_Iter& rhs) const {
 				if (here != rhs.here){
 					return true;
@@ -127,13 +127,13 @@ namespace cop3530 {
 			explicit CDAL_Const_Iter(Node * head = NULL, T * start = NULL) : here(start), node(head), i(0){}
 			CDAL_Const_Iter(const CDAL_Const_Iter& src) : here(src.here), node(src.node), i(0) {}
 
-			reference operator*() const { return *here; }//done
-			pointer operator->() const { return here; }//done
+			reference operator*() const { return *here; }
+			pointer operator->() const { return here; }
 
 			self_reference operator=(const CDAL_Const_Iter& src) {
 				delete this;
 				*this = src;
-			}//done
+			}
 
 			self_reference operator++() {
 				++i;
@@ -146,7 +146,7 @@ namespace cop3530 {
 					++here;
 				}
 				return *this;
-			} // preincrement//done
+			} // preincrement
 			self_type operator++(int) {
 				CDAL_Const_Iter temp(*this);
 				++i;
@@ -159,14 +159,14 @@ namespace cop3530 {
 					++here;
 				}
 				return temp;
-			} // postincrement//done
+			} // postincrement
 
 			bool operator==(const CDAL_Const_Iter& rhs) const {
 				if (here == rhs.here){
 					return true;
 				}
 				return false;
-			}//done
+			}
 
 			bool operator!=(const CDAL_Const_Iter& rhs) const {
 				if (here != rhs.here){
@@ -224,8 +224,8 @@ namespace cop3530 {
 
 		T& operator[](int position){
 			if (position < 0 || position >(int)amount){
-				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
-				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+				if (position < 0){ throw std::invalid_argument("Argument Incorrect: does not take negative integers."); }
+				else{ throw std::invalid_argument("Argument Incorrect: Position does not exist."); }
 			}
 			int nodePosition = position / 50;
 			int arrayPosition = position % 50;
@@ -238,8 +238,8 @@ namespace cop3530 {
 
 		T const& operator[](int position) const{
 			if (position < 0 || position >(int)amount){
-				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
-				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+				if (position < 0){ throw std::invalid_argument("Argument Incorrect: does not take negative integers."); }
+				else{ throw std::invalid_argument("Argument Incorrect: Position does not exist."); }
 			}
 						int nodePosition = position / 50;
 			int arrayPosition = position % 50;
@@ -253,7 +253,7 @@ namespace cop3530 {
 		//Replaces orginal element with specified element, returns orginal
 		T replace(const T& element, int position) {
 			if (position > amount - 1 || position < 0){
-				throw std::domain_error("Domain Error: Position doesn't exist");
+				throw std::invalid_argument("Argument Error: Position doesn't exist");
 			}
 			int nodePosition = position / 50;
 			int arrayPosition = position % 50;
@@ -430,11 +430,11 @@ namespace cop3530 {
 
 		//Checks for emptiness
 		bool is_empty() const { return (amount == 0 ? true : false); }
-		//done
+		
 
 		//checks for size
 		size_t size() const { return amount; }
-		//done
+		
 
 		//clears list
 		void clear() {

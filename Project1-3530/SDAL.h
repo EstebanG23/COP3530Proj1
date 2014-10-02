@@ -53,7 +53,7 @@ namespace cop3530 {
 			self_reference operator=(const SDAL_Iter& src) {
 				delete this;
 				*this = src;
-			}//done
+			}
 
 			self_reference operator++() {
 				here = ++here;
@@ -70,7 +70,7 @@ namespace cop3530 {
 					return true;
 				}
 				return false;
-			}//done
+			}
 			bool operator!=(const SDAL_Iter& rhs) const {
 				if (here != rhs.here){
 					return true;
@@ -103,30 +103,30 @@ namespace cop3530 {
 			explicit SDAL_Const_Iter(T * start = NULL) : here(start) {}
 			SDAL_Const_Iter(const SDAL_Const_Iter& src) : here(src.here) {}
 
-			reference operator*() const { return *here; }//done
-			pointer operator->() const { return here; }//done
+			reference operator*() const { return *here; }
+			pointer operator->() const { return here; }
 
 			self_reference operator=(const SDAL_Const_Iter& src) {
 				delete this;
 				*this = src;
-			}//done
+			}
 
 			self_reference operator++() {
 				here = here->next;
 				return *this;
-			} // preincrement//done
+			} // preincrement
 			self_type operator++(int) {
 				SDAL_Const_Iter temp(*this);
 				here = &here->next;
 				return here;
-			} // postincrement//done
+			} // postincrement
 
 			bool operator==(const SDAL_Const_Iter& rhs) const {
 				if (here == rhs.here){
 					return true;
 				}
 				return false;
-			}//done
+			}
 
 			bool operator!=(const SDAL_Const_Iter& rhs) const {
 				if (here != rhs.here){
@@ -198,16 +198,16 @@ namespace cop3530 {
 
 		T& operator[](int position){
 			if (position < 0 || position > (int)amount){
-				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
-				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+				if (position < 0){ throw std::invalid_argument("Argument Incorrect: does not take negative integers."); }
+				else{ throw std::invalid_argument("Argument Incorrect: Position does not exist."); }
 			}
 			return list[position];
 		}
 
 		T const& operator[](int position) const{
 			if (position < 0 || position >(int)amount){
-				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
-				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+				if (position < 0){ throw std::invalid_argument("Argument Incorrect: does not take negative integers."); }
+				else{ throw std::invalid_argument("Argument Incorrect: Position does not exist."); }
 			}
 			return list[position];
 		}
@@ -215,20 +215,20 @@ namespace cop3530 {
 		//Replaces orginal element with specified element, returns orginal
 		T replace(const T& element, int position) {
 			if (position < 0 || position > amount){
-				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
-				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+				if (position < 0){ throw std::invalid_argument("Argument Incorrect: does not take negative integers."); }
+				else{ throw std::invalid_argument("Argument Incorrect: Position does not exist."); }
 			}
 			T data = list[position];
 			list[position] = element;
 			return data;
-		}//done
+		}
 
 		//inserts elemenet, and shifts all elements after to the "left"
 		void insert(const T& element, int position) {
 			if (amount == length){ grow_list(); }
 			if (position < 0 || position > (int)amount + 1){
-				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
-				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+				if (position < 0){ throw std::invalid_argument("Argument Incorrect: does not take negative integers."); }
+				else{ throw std::invalid_argument("Argument Incorrect: Position does not exist."); }
 			}
 
 			if (amount != length){
@@ -239,35 +239,35 @@ namespace cop3530 {
 			}
 			++amount;
 			++tail;
-		}//done
+		}
 
 		//pushes element to the front of the list
 		void push_front(const T& element) {
 			insert(element, 0);
-		}//done
+		}
 
 		//pushes elemets to the back
 		void push_back(const T& element) {
 			insert(element, tail);
-		}//done
+		}
 
 		//pops the first element, assigns pointer to temp, replaces head with the next value
 		T pop_front() {
 			return remove(0);
-		}//done
+		}
 
 		//pops elements off the back, moves tail to the previous element
 		T pop_back() {
 			return remove(tail);
 
-		}//done
+		}
 
 		//Removes an element from the list, from specified location
 		T remove(int position) {
 			if (length >= 100 && amount < length / 2){ shrink_list(); }
 			if (position < 0 || position > amount){
-				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
-				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+				if (position < 0){ throw std::invalid_argument("Argument Incorrect: does not take negative integers."); }
+				else{ throw std::invalid_argument("Argument Incorrect: Position does not exist."); }
 			}
 
 			T data = list[position];
@@ -278,31 +278,31 @@ namespace cop3530 {
 			--tail;
 
 			return data;
-		}//done
+		}
 
 		//Looks at item at position
 		T item_at(int position) const {
 			if (position < 0 || position > amount){
-				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
-				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+				if (position < 0){ throw std::invalid_argument("Argument Incorrect: does not take negative integers."); }
+				else{ throw std::invalid_argument("Argument Incorrect: Position does not exist."); }
 			}
 			return list[position];
 		}//#done
 
 		//Checks for emptiness
 		bool is_empty() const { return (amount == 0 ? true : false); }
-		//done
+		
 
 		//checks for size
 		size_t size() const { return amount; }
-		//done
+		
 
 		//clears list
 		void clear() {
 			amount = 0;
 			tail = 0;
 
-		}//done
+		}
 
 		bool contains(const T& element,
 			bool equals(const T& a, const T& b)) const {
@@ -324,7 +324,7 @@ namespace cop3530 {
 				}
 			}
 			return amount != 0 ? out : out << "<empty list>";
-		}//done
+		}
 
 	private:
 		void grow_list(){
@@ -351,7 +351,7 @@ namespace cop3530 {
 			delete[] list;
 			tail = amount - 1;
 			list = temp;
-		}//done
+		}
 		T* get_new_T(size_t length){
 			try
 			{		

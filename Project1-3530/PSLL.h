@@ -59,7 +59,7 @@ namespace cop3530 {
 			self_reference operator=(const PSLL_Iter& src) {
 				delete this;
 				*this = src;
-			}//done
+			}
 
 			self_reference operator++() {
 				here = here->next;
@@ -76,7 +76,7 @@ namespace cop3530 {
 					return true;
 				}
 				return false;
-			}//done
+			}
 			bool operator!=(const PSLL_Iter& rhs) const {
 				if (here != rhs.here){
 					return true;
@@ -109,30 +109,30 @@ namespace cop3530 {
 			explicit PSLL_Const_Iter(Node* start = NULL) : here(start) {}
 			PSLL_Const_Iter(const PSLL_Const_Iter& src) : here(src.here) {}
 
-			reference operator*() const { return here->data; }//done
-			pointer operator->() const { return here; }//done
+			reference operator*() const { return here->data; }
+			pointer operator->() const { return here; }
 
 			self_reference operator=(const PSLL_Const_Iter& src) {
 				delete this;
 				*this = src;
-			}//done
+			}
 
 			self_reference operator++() {
 				here = here->next;
 				return *this;
-			} // preincrement//done
+			} // preincrement
 			self_type operator++(int) {
 				PSLL_Const_Iter temp(*this);
 				here = here->next;
 				return here;
-			} // postincrement//done
+			} // postincrement
 
 			bool operator==(const PSLL_Const_Iter& rhs) const {
 				if (here == rhs.here){
 					return true;
 				}
 				return false;
-			}//done
+			}
 
 			bool operator!=(const PSLL_Const_Iter& rhs) const {
 				if (here != rhs.here){
@@ -198,8 +198,8 @@ namespace cop3530 {
 
 		T& operator[](int position){
 			if (position < 0 || position >(int)amount){
-				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
-				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+				if (position < 0){ throw std::invalid_argument("Argument Incorrect: does not take negative integers."); }
+				else{ throw std::invalid_argument("Argument Incorrect: Position does not exist."); }
 			}
 			Node * select = head;
 			
@@ -212,8 +212,8 @@ namespace cop3530 {
 
 		T const& operator[](int position) const{
 			if (position < 0 || position >(int)amount){
-				if (position < 0){ throw std::domain_error("Domain Incorrect: does not take negative integers."); }
-				else{ throw std::domain_error("Domain Incorrect: Position does not exist."); }
+				if (position < 0){ throw std::invalid_argument("Argument Incorrect: does not take negative integers."); }
+				else{ throw std::invalid_argument("Argument Incorrect: Position does not exist."); }
 			}
 			Node * select = head;
 
@@ -402,7 +402,7 @@ namespace cop3530 {
 			amount = 0;
 
 		}
-		//done
+		
 
 		bool contains(const T& element,
 			bool equals(const T& a, const T& b)) const {
