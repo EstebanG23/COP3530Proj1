@@ -503,6 +503,8 @@ namespace cop3530 {
 				std::cerr << "Memory Allocation Failed " << std::endl;
 			}
 			return 0;
+
+			BST* Node;
 		}
 
 	};
