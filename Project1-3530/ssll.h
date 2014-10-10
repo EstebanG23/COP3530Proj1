@@ -388,7 +388,7 @@ namespace cop3530 {
 		//	find the element held at position
 		//-------------------------------------------------------------------------
 		T item_at(int position) const {
-			if (position < 0 || position > amount ){
+			if (position < 0 || position > (int)amount ){
 				if (position < 0){ throw std::invalid_argument("Argument Incorrect: does not take negative integers."); }
 				else{ throw std::invalid_argument("Argument Incorrect: Position does not exist."); }
 			}
@@ -504,7 +504,7 @@ namespace cop3530 {
 			}
 			return 0;
 
-			BST* Node;
+			//BST* Node; WHAT?
 		}
 
 	};
