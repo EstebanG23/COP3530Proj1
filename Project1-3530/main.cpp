@@ -11,64 +11,75 @@
 
 using namespace cop3530;
 
-TEST_CASE("SSLL IS CREATED", "[SSLL<char>]"){
-	//-------------------------------------------------------------------------
-	//  SSLL<char>
-	//	PUSHING: push_back, push_front, and insert
-	//
-	//	POPPING: pop_front, pop_back, and remove
-	//	IN: egleyk
-	//	OUT: kegley
-	//-------------------------------------------------------------------------
-	cop3530::SSLL<char> SS;
-
-	SS.push_back('e');
-	SS.push_back('g');
-	SS.insert('l', 2);
-	SS.push_back('e');
-	SS.push_back('y');
-	SS.push_front('k');
-	REQUIRE(SS.pop_front() == 'k'); 
-	REQUIRE(SS.pop_front() == 'e');
-	REQUIRE(SS.remove(0) == 'g');
-	REQUIRE(SS.pop_front() == 'l');
-	REQUIRE(SS.pop_front() == 'e');
-	REQUIRE(SS.pop_front() == 'y');
-}
 
 TEST_CASE("SSLL<int> is created, [0,1000000)", "[SSLL<int>]"){
-	//-------------------------------------------------------------------------
-	//  SSLL<int>
-	//	PUSH_BACK: [0, 100000)
-	//
-	//	POP_FRONT: [0, 100000)
-	//-------------------------------------------------------------------------
-	cop3530::SSLL<int> SSi;
+	SECTION("TESTING PUSH_FRONT, PUSH_BACK, INSERT, POP_FRONT, POP_BACK, REMOVE"){
+		//-------------------------------------------------------------------------
+		//  SSLL<char>
+		//	PUSHING: push_back, push_front, and insert
+		//
+		//	POPPING: pop_front, pop_back, and remove
+		//	IN: egleyk
+		//	OUT: kegley
+		//-------------------------------------------------------------------------
+		cop3530::SSLL<char> SS;
 
-	for (int i = 0; i < 100; ++i){
-		SSi.push_back(i);
+		SS.push_back('e');
+		SS.push_back('g');
+		SS.insert('l', 2);
+		SS.push_back('e');
+		SS.push_back('y');
+		SS.push_front('k');
+		REQUIRE(SS.pop_front() == 'k');
+		REQUIRE(SS.pop_front() == 'e');
+		REQUIRE(SS.remove(0) == 'g');
+		REQUIRE(SS.pop_front() == 'l');
+		REQUIRE(SS.pop_front() == 'e');
+		REQUIRE(SS.pop_front() == 'y');
 	}
-	for (int i = 0; i < 100; ++i){
-		REQUIRE(SSi.pop_front() == i);
+	
+	
+	
+	SECTION("PUSHING AND POPPING 100000 INTS"){	
+		//-------------------------------------------------------------------------
+		//  SSLL<int>
+		//	PUSH_BACK: [0, 100000)
+		//
+		//	POP_FRONT: [0, 100000)
+		//-------------------------------------------------------------------------
+		cop3530::SSLL<int> SSi;
+
+		for (int i = 0; i < 100; ++i){
+			SSi.push_back(i);
+		}
+		for (int i = 0; i < 100; ++i){
+			REQUIRE(SSi.pop_front() == i);
+		}
+
+
 	}
-}
 
-TEST_CASE("SSLL<char>: Using all functions", "[SSLL<char>: All Functions]"){
-	//-------------------------------------------------------------------------
-	//  SSLL<char>
-	//	
-	//-------------------------------------------------------------------------
+	SECTION("USING OTHER REQUIRED FUNCTIONS"){
+		//-------------------------------------------------------------------------
+		//  SSLL<char>
+		//	
+		//-------------------------------------------------------------------------
 
-	cop3530::SSLL<char> SSLLFuncts;
+		cop3530::SSLL<char> SSLLFuncts;
 
-	for (int i = 97; i < 96+27; ++i){
-		SSLLFuncts.push_back((char)i);
-	}
-	SSLLFuncts.replace('E', 4);
-	REQUIRE(SSLLFuncts.item_at(3) == 'd');
-	REQUIRE(SSLLFuncts.item_at(4) == 'E');
-
-	/*
+		for (int i = 97; i < 96 + 27; ++i){
+			SSLLFuncts.push_back((char)i);
+		}
+		REQUIRE(SSLLFuncts.item_at(4) == 'e');
+		SSLLFuncts.replace('E', 4);
+		REQUIRE(SSLLFuncts.item_at(3) == 'd');
+		REQUIRE(SSLLFuncts.item_at(4) == 'E');
+		SSLLFuncts.insert('e', 4);
+		REQUIRE(SSLLFuncts.item_at(3) == 'd');
+		REQUIRE(SSLLFuncts.item_at(4) == 'e');
+		REQUIRE(SSLLFuncts.item_at(5) == 'E');
+		REQUIRE(SSLLFuncts.remove(4) == 'e');
+		/*
 		replace(element, position)
 		insert(element, position)
 		push_back(element)
@@ -82,7 +93,8 @@ TEST_CASE("SSLL<char>: Using all functions", "[SSLL<char>: All Functions]"){
 		clear()
 		contains(element, equals_function);
 		print(ostream);
-	*/
+		*/
 
 
+	}
 }

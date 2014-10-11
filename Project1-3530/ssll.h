@@ -369,7 +369,7 @@ namespace cop3530 {
 			else{
 				for (int i = 0; i < position - 1; ++i){
 					next = next->next;
-					std::cout << next->data;
+					//std::cout << next->data;
 
 				}
 				data = next->next->data;
