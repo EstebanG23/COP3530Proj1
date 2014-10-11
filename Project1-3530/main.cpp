@@ -35,6 +35,13 @@ bool in_list(const cop3530::SDAL<char>& list, char c) {
 	return false;
 }
 
+bool in_list(const cop3530::CDAL<char>& list, char c) {
+	if (list.contains(c, same_char)){
+		return true;
+	}
+	return false;
+}
+
 
 TEST_CASE("SSLL", "[SSLL]"){
 
@@ -182,7 +189,6 @@ TEST_CASE("PSLL", "[PSLL]"){
 	}
 }
 
-
 TEST_CASE("SDAL", "[SDAL]"){
 
 	SECTION("USING OTHER REQUIRED FUNCTIONS"){
@@ -250,6 +256,80 @@ TEST_CASE("SDAL", "[SDAL]"){
 		REQUIRE(SDALFuncts.is_empty() == true);
 		REQUIRE(SDALFuncts.size() == 0);
 		REQUIRE(!in_list(SDALFuncts, 'x'));
+
+
+	}
+}
+
+TEST_CASE("CDAL", "[CDAL]"){
+
+	SECTION("USING OTHER REQUIRED FUNCTIONS"){
+		//-------------------------------------------------------------------------
+		//  CDAL<char>
+		//	PUSHING: push_back, push_front, and insert
+		//
+		//	POPPING: pop_front, pop_back, and remove
+		//	IN: egleyk
+		//	OUT: kegley
+		//-------------------------------------------------------------------------
+		cop3530::CDAL<char> CDAL;
+		std::cout << "HELLO";
+		CDAL.push_back('e');
+		CDAL.push_back('g');
+		CDAL.insert('l', 2);
+		CDAL.push_back('e');
+		CDAL.push_back('y');
+		CDAL.push_front('k');
+		REQUIRE(CDAL.pop_front() == 'k');
+		REQUIRE(CDAL.pop_front() == 'e');
+		REQUIRE(CDAL.remove(0) == 'g');
+		REQUIRE(CDAL.pop_front() == 'l');
+		REQUIRE(CDAL.pop_front() == 'e');
+		REQUIRE(CDAL.pop_front() == 'y');
+		std::cout << "HELLO";
+		//-------------------------------------------------------------------------
+		//  CDAL<int>
+		//	PUSH_BACK: [0, 100000)
+		//
+		//	POP_FRONT: [0, 100000)
+		//-------------------------------------------------------------------------
+		cop3530::CDAL<int> CDALi;
+		std::cout << "HELLO";
+		for (int i = 0; i < 401; ++i){
+			CDALi.push_back(i);
+		}
+		std::cout << "HELLO" << std::endl;
+		CDALi.print(std::cout);
+		for (int i = 0; i < 401; ++i){
+			REQUIRE(CDALi.pop_front() == i);
+		}
+		std::cout << std::endl;
+		//-------------------------------------------------------------------------
+		//  CDAL<char>
+		//	Testing all Functions 
+		//-------------------------------------------------------------------------
+		cop3530::CDAL<char> CDALFuncts;
+
+		for (int i = 97; i < 96 + 27; ++i){
+			CDALFuncts.push_back((char)i);
+		}
+		REQUIRE(in_list(CDALFuncts, 'x'));
+		REQUIRE(CDALFuncts.size() == 26);
+		REQUIRE(CDALFuncts.item_at(4) == 'e');
+		CDALFuncts.replace('E', 4);
+		REQUIRE(CDALFuncts.item_at(3) == 'd');
+		REQUIRE(CDALFuncts.item_at(4) == 'E');
+		CDALFuncts.insert('e', 4);
+		REQUIRE(CDALFuncts.item_at(3) == 'd');
+		REQUIRE(CDALFuncts.item_at(4) == 'e');
+		REQUIRE(CDALFuncts.item_at(5) == 'E');
+		REQUIRE(CDALFuncts.remove(4) == 'e');
+		REQUIRE(CDALFuncts.item_at(4) == 'E');
+		REQUIRE(CDALFuncts.is_empty() == false);
+		CDALFuncts.clear();
+		REQUIRE(CDALFuncts.is_empty() == true);
+		REQUIRE(CDALFuncts.size() == 0);
+		//REQUIRE(!in_list(CDALFuncts, 'x'));
 
 
 	}

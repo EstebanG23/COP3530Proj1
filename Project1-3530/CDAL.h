@@ -252,7 +252,7 @@ namespace cop3530 {
 
 		//Replaces orginal element with specified element, returns orginal
 		T replace(const T& element, int position) {
-			if (position > amount - 1 || position < 0){
+			if (position > (int)amount - 1 || position < 0){
 				throw std::invalid_argument("Argument Error: Position doesn't exist");
 			}
 			int nodePosition = position / 50;
@@ -408,7 +408,7 @@ namespace cop3530 {
 			if (tail->arrayTail == 0){
 				tail = get_node(amount / 50);
 			}
-			if (amount <= (nodeAmount * 50) / 2){
+			if ((int)amount <= (nodeAmount * 50) / 2){
 				shrink();
 			}
 
@@ -453,7 +453,12 @@ namespace cop3530 {
 
 		bool contains(const T& element,
 			bool equals(const T& a, const T& b)) const {
-
+			for (int j = 0; j < (int)amount; ++j){
+				if (item_at(j) == element){
+					return true;
+				}
+			}
+			return false;
 		}
 
 		std::ostream& print(std::ostream& out) const {
@@ -461,10 +466,12 @@ namespace cop3530 {
 			out << "[";
 			for (int i = 0; i < (int)amount; ++i){
 				if (i != 0 && i % 50 == 0){
-					out << "]" << std::endl << std::endl << i / 50 << "Node: " << temp << "[";
+					out << "]" << std::endl << std::endl << "[";
 					temp = temp->next;
 				}
-				out << temp->data[i % 50] << ",";
+				out << temp->data[i % 50];
+				if (i % 50 == 49 || i == amount - 1){ out << ""; }
+				else { out << ","; }
 			}
 			out << "]";
 			return out;
