@@ -168,8 +168,6 @@ namespace cop3530 {
 
 		PSLL() {
 			amount = 0;
-			tail = new Node();
-			head = tail;
 			poolAmount = 0;
 		}
 
@@ -245,124 +243,94 @@ namespace cop3530 {
 
 		//inserts elemenet, and shifts all elements after to the "left"
 		void insert(const T& element, int position) {
-			Node * next = head;
+			Node * temp;
 			Node * prev;
-
-			if (position != 0 && position != amount - 1){
-				for (int i = 0; i < position; ++i){
-					prev = next;
-					next = next->next;
-					if (position - 1 == i){
-						prev->next = pop_pool();
-						prev->next->data = element;
-						prev->next->next = next;
-
-					}
-
-				}
-				++amount;
+			if (position == 0 && amount == 0){
+				head = pop_pool();
+				head->data = element;
+				tail = head;
 			}
-			else if (position == 0){ push_front(element); }
-			else { push_back(element); }
+			else if (position == 0){
+				temp = pop_pool();
+				temp->data = element;
+				temp->next = head;
+				head = temp;
+			}
+			else if (position == amount){
+				tail->next = pop_pool();
+				tail = tail->next;
+				tail->data = element;
+			}
+			else{
+				prev = head;
+				temp = pop_pool();
+				temp->data = element;
+				for (int i = 0; i < position-1; ++i){
+					prev = prev->next;
+				}
+				temp->next = prev->next;
+				prev->next = temp;
+			}
 
+			++amount;
 		}
 		//#done
 
 		//pushes element to the front of the list
 		void push_front(const T& element) {
-			if (amount == 0){
-				head->data = element;
-			}
-			else{
-				Node *temp = head;
-				head = pop_pool();
-				head->data = element;
-				head->next = temp;
-			}
-			++amount;
+			insert(element, 0);
 		}
 		//#done
 
 		//pushes elemets to the back
 		void push_back(const T& element) {
-			if (amount == 0){
-				head->data = element;
-			}
-			else {
-				tail->next = pop_pool();
-				tail = tail->next;
-				tail->data = element;
-
-			}
-			++amount;
+			insert(element, amount);
 		}
-		//#done
+		//#done 
 
 		//pops the first element, assigns pointer to temp, replaces head with the next value
 		T pop_front() {
-			T data = head->data;
-			Node * temp = head;
-			head = head->next;
-			//Adding removed Node to Pool
-			push_pool(temp);
-			--amount;
-			return data;
+			return remove(0);
 		}
 		//#done
 
 		//pops elements off the back, moves tail to the previous element
 		T pop_back() {
-			T data = tail->data;
-			//Adding removed Node to Pool
-			push_pool(tail);
-			if (amount == 1){
-				head = pop_pool();
-				tail = head;
-			}
-			else{
-				tail = head;
-				for (int i = 0; i < amount - 2; ++i){
-					tail = tail->next;
-				}
-			}
-
-			--amount;
-			return data;
+			return remove(amount - 1);
 		}
 		//#done
 
-
 		//Removes an element from the list, from specified location
 		T remove(int position) {
-			Node * prev = head;
-			Node * select;
+			Node * temp;
+			Node * prev;
 			T data;
-			//if position is the last position, handle it differenly, reassign tail. 
-			if (position == amount - 1){
-				tail = head;
-				for (int i = 1; i < position; i++){
-					tail = tail->next;
-					select = tail->next;
-					data = select->data;
-				}
+			if (position == 0){
+				temp = head;
+				head = head->next;
+				data = temp->data;
+				push_pool(temp);
 			}
-			//if it isn't the last or the first, iterate to the one before, set select to the one, and reassign pointer for the one before.
-			else if (position != 0){
-				for (int i = 1; i < position; i++){
+			else if (position == amount - 1){
+				prev = head;
+				for (int i = 0; i < position - 1; ++i){
 					prev = prev->next;
-					select = prev->next;
-					data = select->data;
-
 				}
+				data = tail->data;
+				push_pool(tail);
+				tail = prev;
 			}
-			//if 0 position, reasign head
 			else{
-				select = head;
-				head = select->next;
-				data = select->data;
+				prev = head;
+				for (int i = 0; i < position - 1; ++i){
+					prev = prev->next;
+				}
+				temp = prev->next;
+				data = temp->data;
+				prev->next = temp->next;
+				push_pool(temp);
+				
 			}
-			//delete the old!
-			delete select;
 			--amount;
 			return data;
 		}
@@ -408,7 +376,7 @@ namespace cop3530 {
 			bool equals(const T& a, const T& b)) const {
 
 			Node* temp = head;
-			for (int i = 0; i < amount; i++){
+			for (int i = 0; i < (int)amount; i++){
 				if (temp->data == element){
 					return true;
 				}
@@ -446,10 +414,10 @@ namespace cop3530 {
 	private:
 		//pushes all emptied, unused nodes to the back
 		void push_pool(Node* src){
-			if (amount >= 100 && poolAmount > amount / 2){
+			if ((int)amount >= 100 && (int)poolAmount > (int)amount / 2){
 				delete src;
-				int i = poolAmount / 2;
-				while (poolAmount > i){
+				int i = (int)poolAmount / 2;
+				while ((int)poolAmount > i){
 					Node * temp = poolHead;
 					poolHead = poolHead->next;
 					delete temp;

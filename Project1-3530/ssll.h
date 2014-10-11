@@ -448,7 +448,7 @@ namespace cop3530 {
 			bool equals(const T& a, const T& b)) const {
 
 			Node* temp = head;
-			for (int i = 0; i < amount; i++){
+			for (int i = 0; i < (int)amount; i++){
 				if (temp->data == element){
 					return true;
 				}

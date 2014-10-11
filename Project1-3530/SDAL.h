@@ -214,7 +214,7 @@ namespace cop3530 {
 
 		//Replaces orginal element with specified element, returns orginal
 		T replace(const T& element, int position) {
-			if (position < 0 || position > amount){
+			if (position < 0 || position > (int)amount){
 				if (position < 0){ throw std::invalid_argument("Argument Incorrect: does not take negative integers."); }
 				else{ throw std::invalid_argument("Argument Incorrect: Position does not exist."); }
 			}
@@ -264,14 +264,14 @@ namespace cop3530 {
 
 		//Removes an element from the list, from specified location
 		T remove(int position) {
-			if (length >= 100 && amount < length / 2){ shrink_list(); }
-			if (position < 0 || position > amount){
+			if (length >= 100 && (int)amount < length / 2){ shrink_list(); }
+			if (position < 0 || position > (int)amount){
 				if (position < 0){ throw std::invalid_argument("Argument Incorrect: does not take negative integers."); }
 				else{ throw std::invalid_argument("Argument Incorrect: Position does not exist."); }
 			}
 
 			T data = list[position];
-			for (int i = position; i < amount; ++i){
+			for (int i = position; i < (int)amount; ++i){
 				list[i] = list[i + 1];
 			}
 			--amount;
@@ -282,7 +282,7 @@ namespace cop3530 {
 
 		//Looks at item at position
 		T item_at(int position) const {
-			if (position < 0 || position > amount){
+			if (position < 0 || position > (int)amount){
 				if (position < 0){ throw std::invalid_argument("Argument Incorrect: does not take negative integers."); }
 				else{ throw std::invalid_argument("Argument Incorrect: Position does not exist."); }
 			}
@@ -309,6 +309,7 @@ namespace cop3530 {
 			for (int i = 0; i < (int)amount; ++i){
 				if (list[i] == element){ return true; }
 			}
+			return false;
 		}
 
 		std::ostream& print(std::ostream& out) const {
@@ -336,7 +337,7 @@ namespace cop3530 {
 				temp[i] = list[i];
 			}
 			delete[] list;
-			tail = amount - 1;
+			tail = amount;
 			list = temp;
 		}
 
@@ -345,7 +346,7 @@ namespace cop3530 {
 			
 			T * temp = get_new_T(length);
 			
-			for (int i = 0; i < amount; ++i){
+			for (int i = 0; i < (int)amount; ++i){
 				temp[i] = list[i];
 			}
 			delete[] list;
