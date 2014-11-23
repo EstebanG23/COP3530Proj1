@@ -273,7 +273,6 @@ TEST_CASE("CDAL", "[CDAL]"){
 		//	OUT: kegley
 		//-------------------------------------------------------------------------
 		cop3530::CDAL<char> CDAL;
-		std::cout << "HELLO";
 		CDAL.push_back('e');
 		CDAL.push_back('g');
 		CDAL.insert('l', 2);
@@ -286,7 +285,6 @@ TEST_CASE("CDAL", "[CDAL]"){
 		REQUIRE(CDAL.pop_front() == 'l');
 		REQUIRE(CDAL.pop_front() == 'e');
 		REQUIRE(CDAL.pop_front() == 'y');
-		std::cout << "HELLO";
 		//-------------------------------------------------------------------------
 		//  CDAL<int>
 		//	PUSH_BACK: [0, 100000)
@@ -294,13 +292,13 @@ TEST_CASE("CDAL", "[CDAL]"){
 		//	POP_FRONT: [0, 100000)
 		//-------------------------------------------------------------------------
 		cop3530::CDAL<int> CDALi;
-		std::cout << "HELLO";
-		for (int i = 0; i < 401; ++i){
+		for (int i = 0; i < 450; ++i){
 			CDALi.push_back(i);
 		}
 		std::cout << "HELLO" << std::endl;
 		CDALi.print(std::cout);
-		for (int i = 0; i < 401; ++i){
+
+		for (int i = 0; i < 450; ++i){
 			REQUIRE(CDALi.pop_front() == i);
 		}
 		std::cout << std::endl;
